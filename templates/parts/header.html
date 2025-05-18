@@ -31,7 +31,7 @@
                         </svg>
                     </span>
 
-                    <a class=" icon-link m-2" aria-current="page" href="{%if request.user.is_authenticated %}{% url 'profile' %} {%else%}{% url 'signIn' %} {%endif%}">
+                    <a class=" icon-link m-2" aria-current="page" href="{%if request.user.is_authenticated %} {% url 'profile' %} {%else%} {% url 'signIn' %} {%endif%}">
                         <svg width="31" height="29" viewBox="0 0 31 29" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

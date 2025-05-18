@@ -74,7 +74,7 @@ def Sign_In(request):
         form = LoginForm()
 
     context = {"form": form}
-    return render(request, "account/signin.html", context)
+    return render(request, "account/signIn.html", context)
 
 
 # 3🌸done:
