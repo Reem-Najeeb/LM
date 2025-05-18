@@ -86,7 +86,7 @@ body,html{position:relative}header{width:100%}body,header{background-color:var(-
         background-color: transparent;
     }
     .profile-container .card-body{
-        background-color: #f9fcff;
+        background-color: var(--color-white);
     }
     .cards-products .card .card-img-top{
         height: 20rem;
@@ -100,8 +100,11 @@ body,html{position:relative}header{width:100%}body,header{background-color:var(-
     }
     
     @media(max-width:787px){
+        .footer-brand .logo-LM{
+            height: 100px;      
+        }       
         footer .footer-bar {
-            /* width: 100%; */
+            width: 95%;
             padding: 25px 0px;
         }
         .about-section .image-box .r-b, .faqs .right .r-b {
@@ -112,8 +115,11 @@ body,html{position:relative}header{width:100%}body,header{background-color:var(-
             top: -4rem;
         }
         footer .col{
-            /* padding-left:0;  */
-            /* padding-right: 0; */
+            padding-left:0; 
+             padding-right: 0;
+        }
+        .fbc{
+            flex-basis: content;
         }
         footer .row,
         .about-section .row
@@ -131,6 +137,22 @@ body,html{position:relative}header{width:100%}body,header{background-color:var(-
         }
         .search .search-field {
             width: 19rem;
+        }
+        .btn-end-1{
+            width: 50%;
+        }
+        .btn-primary-one, .btn-primary-three {
+            padding: 0.925rem 1.875rem;
+        }
+        .form-control {
+            padding: .375rem .75rem;
+            font-size: 1.3rem;
+        }
+        .form-label {
+            font-size: 1.3rem;
+        }
+        .form-container-1 {
+            width: 95%;
         }
     }
     @media(max-width:880px){

@@ -5,7 +5,8 @@ urlpatterns = [
     # 1✔️
     path('signup', views.Sign_Up, name='signUp'),
     # 2✔️
-    path('signin/', views.Sign_In, name='signIn'),
+    # path('signin/', views.Sign_In, name='signIn'),
+    path('signin', views.Sign_In, name='signIn'),
     # 3✔️
     path('logout', views.Log_Out, name='logOut'),
     # 4✔️

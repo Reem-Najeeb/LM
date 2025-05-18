@@ -7,7 +7,7 @@
                     <img src="{% static 'images/Logo/Logo.png'%} " class="logo-LM" alt="LM">
                 </a>
             </div>
-            <div class="col">
+            <div class="col fbc">
                 <ul class="footer-links-one">
                     <li class="nav-item mb-2">
                         <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
@@ -28,7 +28,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col">
+            <div class="col fbc">
                 <ul class="footer-links-one">
                     <li class="nav-item mb-2">
                         <a class="nav-link active" aria-current="page" href="#categories"> الأقسام </a>
@@ -55,7 +55,7 @@
                     </li> {% endcomment %}
                 </ul>
             </div>
-            <div class="col">
+            <div class="col ">
                 <ul class="footer-links-one">
                     {%if request.user.is_authenticated %}
                     <li class="nav-item mb-2">
