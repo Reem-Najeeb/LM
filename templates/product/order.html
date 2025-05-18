@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Orders {% endblock %} 
+
+{% block content %}
+
+  <section class="cart-wishlist-section" style="margin-bottom: 5rem;">
+      <div class="container mt-3 mb-5">
+        {% if orders_with_btn %}
+          <div class="d-flex gap-2 justify-content-between align-items-center">
+              <h2 class="text-center text-secondary"> طلباتك </h2>
+          </div>
+          {% for item in orders_with_btn %}
+            <li>
+              <strong>رقم الطلب:</strong> {{ item.order.code }}<br>
+              <strong>الفاتورة:</strong> {{ item.order.value_bill }}<br>
+              <strong>الوصف:</strong> {{ item.order.additional_description }}<br>
+              <strong>حالة الشحن:</strong> {{ item.order.get_order_stats_display }}<br>
+              <strong>حالة الدفع:</strong> {{ item.order.get_payment_stats_display }}<br>
+
+              <strong>حالة الاستلام:</strong> {{ item.order.get_received_stats_display }}
+              {% if item.show_btn %}
+                <button class="btn btn-success btn-sm ml-2 received-btn" 
+                data-product="{{item.order.id}}">{{ item.order.get_received_stats_display }}</button>
+                <button class="btn btn-success btn-sm ml-2">الاتصال بالدعم</button>
+              {% endif %}
+              <br>
+
+              <strong>محتويات السلة:</strong>
+              <ul style="display: flex;min-width: 18rem;flex-wrap: wrap;gap: 2rem;align-content: flex-start;">
+                {% for cart_item in item.cart_items %}
+                  <li>
+                  <a href="{% url 'Product_Detail' cart_item.product.id %}">
+                    صورة المننتج:
+                    <img class="cart-item-img" src="{{ cart_item.product.product_image.url }}" alt="بودي" >
+                    <br>
+                    المنتج: {{ cart_item.product.product_name }} <br>
+                    الكمية: {{ cart_item.quantity }} <br>
+                    السعر الإجمالي: {{ cart_item.total_price }} ريال
+                  </a>
+                  </li>
+                {% empty %}
+                  <li>لا توجد عناصر في الطلبيات</li>
+                {% endfor %}
+              </ul>
+
+              <hr>
+            </li>
+          {% endfor %}        
+        {% else %}
+        <div class="d-flex gap-2 justify-content-between align-items-start flex-column mb-5">
+              <h2 class="text-center text-secondary">  لا توجد طلبات  </h2>
+              <a href="{%url 'index'%}" class="btn-primary-tow"> استمر بالتسوق </a>
+        </div>    
+        {% endif %}
+      </div>
+  </section>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      $(document).on('click', ".received-btn", function (e){
+        e.preventDefault();
+        console.log("*******");
+        var order_id = $(this).attr('data-product');
+        var btn = $(this); 
+        console.log("order id:", order_id);
+        var url = ""; 
+
+        url = "/ar/product/products/mark_received";
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: {
+              order_id: order_id,
+              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+             },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res.message);
+                showAlert(res.state, res.message);
+                console.log(res.state, res.message)
+
+                setTimeout(function () {
+                  location.reload();
+                }, 3000);
+                
+            },
+            error: function (xhr, status, error) {
+                console.log("AJAX Error:", status, error);
+                alert("حدث خطأ في الحذف.");
+            }
+        });
+      })
+    })
+
+</script>
+
+{% endblock %}

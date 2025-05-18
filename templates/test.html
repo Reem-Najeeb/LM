@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+{% if 'profile' in request.path or 'products' in request.path %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+{% endif %}
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block javascript %}{% endblock %}
+
+{% if 'product' in request.path %}
+<script src="{% static 'js/product-rwc.js' %}"></script>
+{% endif %}
+
+<script>
+    $(document).ready(function() {
+        updateWishlistCount();
+        updateCartItemCount();
+        // أي دالة تحتاج لتطبيقها بعد تحميل الـ DOM
+    });
+</script>
+
+</body>
+</html>

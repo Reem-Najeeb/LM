@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %} 
+
+{% block content %}
+{% comment %} 📌form  🔗Link  🛑delete 🔴Loop ❌endLoop 🌸done {% endcomment %}
+
+
+{% comment %} center {% endcomment %}
+
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/forms.js' %}"></script>
+
+{% endblock %}
+ 
+{% comment %} 📌form:
+===
+method = "post"
+{% csrf_token %} 
+{% url 'register' %}
+====
+{% endcomment %}

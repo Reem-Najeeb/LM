@@ -1,0 +1,639 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock %} 
+{% block content %}
+    {% comment %} {% include 'parts/message.html' %} {% endcomment %}
+    <section class="account-section mb-5">
+
+        <div class="container my-3">
+            <div class="accountHead d-flex gap-2 justify-content-between align-items-center ">
+                <h2 class="text-center text-secondary" style="font-family: var(--ff-primary);">الحساب الشخصي</h2>
+                <a href="{% url 'logOut' %}" class="edit-icon">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.12 9.54296L24.3308 6.47316C24.55 6.40018 24.7833 6.38029 25.0116 6.41511C25.2399 6.44994 25.4567 6.5385 25.6441 6.67349C25.8315 6.80848 25.9841 6.98605 26.0895 7.19158C26.1948 7.3971 26.2498 7.62471 26.25 7.85566V27.1436C26.2498 27.3745 26.1948 27.6021 26.0895 27.8077C25.9841 28.0132 25.8315 28.1908 25.6441 28.3258C25.4567 28.4607 25.2399 28.5493 25.0116 28.5841C24.7833 28.619 24.55 28.5991 24.3308 28.5261L15.1185 25.4563C14.538 25.2626 14.0332 24.8912 13.6754 24.3947C13.3176 23.8982 13.1251 23.3018 13.125 22.6898V12.3109C13.1248 11.6987 13.3172 11.1019 13.675 10.6051C14.0327 10.1083 14.5378 9.73672 15.1185 9.54296"
+                            fill="#2B4254" fill-opacity="0.25" />
+                        <path
+                            d="M9.47884 13.8535L5.83301 17.4993M5.83301 17.4993L9.47884 21.1452M5.83301 17.4993H20.4163"
+                            stroke="#2B4254" stroke-width="1.25" stroke-linecap="round" />
+                    </svg>
+                </a>
+            </div>
+            <div class="profile-container mt-3">
+                <div class="box-1" style="grid-area:box-1;">
+                    <div class="card mb-0">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span class="title">البيانات الشخصية</span>
+                            <span class="edit-icon">
+                                <svg class="edit" width="20" height="20" viewBox="0 0 26 26" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13 3.25H5.41667C4.84203 3.25 4.29093 3.47827 3.8846 3.8846C3.47827 4.29093 3.25 4.84203 3.25 5.41667V20.5833C3.25 21.158 3.47827 21.7091 3.8846 22.1154C4.29093 22.5217 4.84203 22.75 5.41667 22.75H20.5833C21.158 22.75 21.7091 22.5217 22.1154 22.1154C22.5217 21.7091 22.75 21.158 22.75 20.5833V13"
+                                        stroke="#2B4254" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M19.906 2.84302C20.337 2.41204 20.9215 2.16992 21.531 2.16992C22.1405 2.16992 22.725 2.41204 23.156 2.84302C23.587 3.274 23.8291 3.85853 23.8291 4.46802C23.8291 5.07751 23.587 5.66204 23.156 6.09302L13.3919 15.8582C13.1347 16.1152 12.8169 16.3033 12.4679 16.4053L9.35544 17.3153C9.26222 17.3425 9.16341 17.3441 9.06934 17.32C8.97528 17.2959 8.88942 17.2469 8.82076 17.1783C8.7521 17.1096 8.70316 17.0238 8.67906 16.9297C8.65496 16.8356 8.65659 16.7368 8.68378 16.6436L9.59378 13.5312C9.69618 13.1824 9.88469 12.865 10.1419 12.6082L19.906 2.84302Z"
+                                        stroke="#2B4254" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+
+                                <svg class="cancel ms-3" width="20" height="20" viewBox="0 0 66 83" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M32.9997 41.8414L55.0955 63.9372C56.268 65.1097 57.8582 65.7684 59.5163 65.7684C61.1745 65.7684 62.7647 65.1097 63.9371 63.9372C65.1096 62.7647 65.7683 61.1745 65.7683 59.5164C65.7683 57.8583 65.1096 56.268 63.9371 55.0956L41.833 32.9997L63.933 10.9039C64.5133 10.3233 64.9735 9.63418 65.2874 8.87576C65.6014 8.11733 65.7629 7.3045 65.7627 6.48367C65.7625 5.66284 65.6006 4.85008 65.2863 4.09181C64.972 3.33353 64.5115 2.64459 63.9309 2.06431C63.3503 1.48403 62.6612 1.02378 61.9028 0.709844C61.1443 0.395904 60.3315 0.234421 59.5107 0.234614C58.6898 0.234808 57.8771 0.396673 57.1188 0.71097C56.3605 1.02527 55.6716 1.48584 55.0913 2.06639L32.9997 24.1622L10.9038 2.06639C10.3276 1.46919 9.63813 0.992731 8.87576 0.66482C8.11339 0.33691 7.29335 0.164112 6.46348 0.156512C5.63362 0.148912 4.81055 0.306661 4.04231 0.620554C3.27406 0.934447 2.57602 1.3982 1.98892 1.98475C1.40181 2.5713 0.937403 3.2689 0.622786 4.03685C0.308168 4.8048 0.149643 5.62772 0.156461 6.45759C0.163278 7.28746 0.335301 8.10767 0.662492 8.87034C0.989684 9.63302 1.46549 10.3229 2.06215 10.8997L24.1663 32.9997L2.06632 55.0997C1.46966 55.6766 0.993852 56.3664 0.666661 57.1291C0.339469 57.8918 0.167445 58.712 0.160627 59.5419C0.15381 60.3717 0.312335 61.1946 0.626952 61.9626C0.94157 62.7305 1.40598 63.4281 1.99308 64.0147C2.58019 64.6012 3.27823 65.065 4.04647 65.3789C4.81472 65.6928 5.63779 65.8505 6.46765 65.8429C7.29751 65.8353 8.11755 65.6625 8.87992 65.3346C9.64229 65.0067 10.3317 64.5303 10.908 63.9331L32.9997 41.8414Z"
+                                        fill="#546881" />
+                                </svg>
+
+                            </span>
+                        </div>
+                        <div class="card-body info-card">
+                            <p><strong>الاسم:</strong> <span id="fname-info">{{ user.first_name }}</span> <span id="lname-info">{{ user.last_name }}</span></p>
+                            <p><strong>رقم الهاتف:</strong> <span id="phone-info">{% if user.phone_number %}{{ user.phone_number }}{% else %} لم يتم التحديد {% endif %}</span></p>
+                            <p><strong>الإيميل:</strong> <span id="email-info">{% if user.email %}{{ user.email }}{% else %} لم يتم التحديد {% endif %}</span></p>
+                        </div>
+                        <form method="POST" class="card-body form-card" id="form1" style="background: #f9fcff;">
+                            {% csrf_token %}
+                            <div class="mb-2">
+                                <!-- <label>الاسم:</label> -->
+                                <div class="d-flex gap-2">
+                                    <!-- <input type="text" class="form-control" value="ريم">
+                                    <input type="text" class="form-control" value="نجيب"> -->
+                                    <div class="col filde-container">
+                                        <label class="form-label">الاسم الأول</label>
+                                        <input type="text" class="form-control " id="firstName" placeholder="ريم" value="{{ user.first_name|default:'' }}">
+                                        <div class="invalid-feedback">الرجاء إدخال الاسم الأول</div>
+                                        <!-- <div class="invalid">الرجاء إدخال الاسم الأول</div> -->
+                                    </div>
+                                    <div class="col filde-container">
+                                        <label class="form-label">اسم العائلة</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="نجيب" value="{{ user.last_name|default:'' }}">
+                                        <div class="invalid-feedback">الرجاء إدخال اسم العائلة</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="phone mb-3 filde-container">
+                                <label class="form-label">رقم الهاتف</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+967</span>
+                                    <input type="tel" class="form-control" id="phone" placeholder="7xx xxx xxx"
+                                        value="{{ user.phone_number|default:'' }}" pattern="[7-9][0-9]{8}">
+                                </div>
+                                <div class="invalid-feedback">الرجاء إدخال رقم هاتف صحيح</div>
+                            </div>
+                            <div class="mb-2">
+                                <label>الإيميل:</label>
+                                <p id="email-info2">{% if user.email %}{{ user.email }}{% else %} لم يتم التحديد {% endif %}</p>
+
+                            </div>
+                            <div class="btn-primary-one-span">
+                                <button class="btn-primary-save w-100" type="submit" id="btn_person_account" name="btn_person_account">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M18.25 0.75H3.25C2.58696 0.75 1.95107 1.01339 1.48223 1.48223C1.01339 1.95107 0.75 2.58696 0.75 3.25V20.75C0.75 21.413 1.01339 22.0489 1.48223 22.5178C1.95107 22.9866 2.58696 23.25 3.25 23.25H20.75C22.125 23.25 23.25 22.125 23.25 20.75V5.75L18.25 0.75ZM20.75 20.75H3.25V3.25H17.2125L20.75 6.7875V20.75ZM12 12C9.925 12 8.25 13.675 8.25 15.75C8.25 17.825 9.925 19.5 12 19.5C14.075 19.5 15.75 17.825 15.75 15.75C15.75 13.675 14.075 12 12 12ZM4.5 4.5H15.75V9.5H4.5V4.5Z"
+                                            fill="#546881" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="box-2" style="grid-area:box-2;">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span class="title">بيانات الموقع والتوصيل </span>
+                            <span class="edit-icon">
+                                <svg class="edit" width="20" height="20" viewBox="0 0 26 26" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13 3.25H5.41667C4.84203 3.25 4.29093 3.47827 3.8846 3.8846C3.47827 4.29093 3.25 4.84203 3.25 5.41667V20.5833C3.25 21.158 3.47827 21.7091 3.8846 22.1154C4.29093 22.5217 4.84203 22.75 5.41667 22.75H20.5833C21.158 22.75 21.7091 22.5217 22.1154 22.1154C22.5217 21.7091 22.75 21.158 22.75 20.5833V13"
+                                        stroke="#2B4254" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M19.906 2.84302C20.337 2.41204 20.9215 2.16992 21.531 2.16992C22.1405 2.16992 22.725 2.41204 23.156 2.84302C23.587 3.274 23.8291 3.85853 23.8291 4.46802C23.8291 5.07751 23.587 5.66204 23.156 6.09302L13.3919 15.8582C13.1347 16.1152 12.8169 16.3033 12.4679 16.4053L9.35544 17.3153C9.26222 17.3425 9.16341 17.3441 9.06934 17.32C8.97528 17.2959 8.88942 17.2469 8.82076 17.1783C8.7521 17.1096 8.70316 17.0238 8.67906 16.9297C8.65496 16.8356 8.65659 16.7368 8.68378 16.6436L9.59378 13.5312C9.69618 13.1824 9.88469 12.865 10.1419 12.6082L19.906 2.84302Z"
+                                        stroke="#2B4254" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+
+                                <svg class="cancel ms-3" width="20" height="20" viewBox="0 0 66 83" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M32.9997 41.8414L55.0955 63.9372C56.268 65.1097 57.8582 65.7684 59.5163 65.7684C61.1745 65.7684 62.7647 65.1097 63.9371 63.9372C65.1096 62.7647 65.7683 61.1745 65.7683 59.5164C65.7683 57.8583 65.1096 56.268 63.9371 55.0956L41.833 32.9997L63.933 10.9039C64.5133 10.3233 64.9735 9.63418 65.2874 8.87576C65.6014 8.11733 65.7629 7.3045 65.7627 6.48367C65.7625 5.66284 65.6006 4.85008 65.2863 4.09181C64.972 3.33353 64.5115 2.64459 63.9309 2.06431C63.3503 1.48403 62.6612 1.02378 61.9028 0.709844C61.1443 0.395904 60.3315 0.234421 59.5107 0.234614C58.6898 0.234808 57.8771 0.396673 57.1188 0.71097C56.3605 1.02527 55.6716 1.48584 55.0913 2.06639L32.9997 24.1622L10.9038 2.06639C10.3276 1.46919 9.63813 0.992731 8.87576 0.66482C8.11339 0.33691 7.29335 0.164112 6.46348 0.156512C5.63362 0.148912 4.81055 0.306661 4.04231 0.620554C3.27406 0.934447 2.57602 1.3982 1.98892 1.98475C1.40181 2.5713 0.937403 3.2689 0.622786 4.03685C0.308168 4.8048 0.149643 5.62772 0.156461 6.45759C0.163278 7.28746 0.335301 8.10767 0.662492 8.87034C0.989684 9.63302 1.46549 10.3229 2.06215 10.8997L24.1663 32.9997L2.06632 55.0997C1.46966 55.6766 0.993852 56.3664 0.666661 57.1291C0.339469 57.8918 0.167445 58.712 0.160627 59.5419C0.15381 60.3717 0.312335 61.1946 0.626952 61.9626C0.94157 62.7305 1.40598 63.4281 1.99308 64.0147C2.58019 64.6012 3.27823 65.065 4.04647 65.3789C4.81472 65.6928 5.63779 65.8505 6.46765 65.8429C7.29751 65.8353 8.11755 65.6625 8.87992 65.3346C9.64229 65.0067 10.3317 64.5303 10.908 63.9331L32.9997 41.8414Z"
+                                        fill="#546881" />
+                                </svg>
+
+                            </span>
+                        </div>
+                        <div class="card-body info-card">
+                            <p><strong>المحافظة:</strong> <span id="city-info">{% if customer.city %}{{ customer.city.name }}{% else %} لم يتم التحديد {% endif %}</span></p>
+                            <p><strong>الشارع:</strong> <span id="street-info">{% if customer.street %}{{ customer.street.name }}{% else %} لم يتم التحديد {% endif %}</span></p>
+                            <p><strong>وصف العنوان:</strong> <span id="address-info">{% if customer.address %}{{ customer.address }}{% else %} لم يتم التحديد {% endif %}</span></p>
+                            <p><strong>رقم هاتف إضافي:</strong> <span id="additional-phone-info">{% if customer.additional_phone %}{{ customer.additional_phone }}{% else %} لم يتم التحديد {% endif %}</span></p>
+                        </div>
+                        <form method="POST" class="card-body form-card" id="form2" style="background: #f9fcff;">
+                            {% csrf_token %}
+                            <div>
+                                <label>المحافظة</label>
+                                <div class="select ui selection fluid  dropdown" id="cities" style="margin-bottom: 1rem; border: 2px solid var(--color-gray-light); border-radius: 0; box-shadow: none;">
+                                    <input type="hidden" name="city" id="city-input" value="{% if customer.city %}{{ customer.city.id }}{% else %}pass{% endif %}">                                    <i class="dropdown icon"></i>
+                                    <div class="default text" id="city-text" value="{% if customer.city %}{{ customer.city.id }}{% endif %}"> 
+                                        {% if customer.city %}{{ customer.city.name }}{% else %}اختر المحافظة{% endif %} 
+                                    </div>
+                                    <div class="menu" id="cities-data-box">
+                                        {% comment %} {% for city in qsCities %}
+                                            <div class="item" data-value="{{city.id}}">{{city.name}}</div>
+                                        {% endfor %} {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>الشارع</label>
+                                <div class="ui selection fluid  dropdown" id="street" style="margin-bottom: 1rem; border: 2px solid var(--color-gray-light); border-radius: 0; box-shadow: none;">
+                                    <input type="hidden" name="street" id="street-input" value="{% if customer.street %}{{ customer.street.id }}{% else %}--------{% endif %}">
+
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text"  id="street-text"> 
+                                        {% if customer.street %}{{ customer.street.name }}{% else %}اختر الشارع{% endif %} 
+                                    </div>
+                                    <div class="menu" id="street-data-box">
+                                        {% comment %} {% for street in qsstreet %}
+                                            <div class="item" data-value="{{street.id}}">{{city.name}}</div>
+                                        {% endfor %} {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label>وصف العنوان</label>
+                                <input type="text" class="form-control" name="address"  value="{{ customer.address|default:'' }}" id="address-input">
+                            </div>
+                            <div class="phone mb-3 filde-container">
+                                <label class="form-label">رقم الهاتف</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+967</span>
+                                    <input type="tel" class="form-control" name="additional_phone" id="additional_phone" placeholder="7xx xxx xxx"
+                                    value="{{ customer.additional_phone|default:'' }}"  pattern="[7-9][0-9]{8}">
+                                </div>
+                                <div class="invalid-feedback">الرجاء إدخال رقم هاتف صحيح</div>
+                            </div>
+                            <div class="btn-primary-one-span">
+                                <button class="btn-primary-save w-100" type="submit" id="btn save-customer" name="btnCustomerAddInfo">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M18.25 0.75H3.25C2.58696 0.75 1.95107 1.01339 1.48223 1.48223C1.01339 1.95107 0.75 2.58696 0.75 3.25V20.75C0.75 21.413 1.01339 22.0489 1.48223 22.5178C1.95107 22.9866 2.58696 23.25 3.25 23.25H20.75C22.125 23.25 23.25 22.125 23.25 20.75V5.75L18.25 0.75ZM20.75 20.75H3.25V3.25H17.2125L20.75 6.7875V20.75ZM12 12C9.925 12 8.25 13.675 8.25 15.75C8.25 17.825 9.925 19.5 12 19.5C14.075 19.5 15.75 17.825 15.75 15.75C15.75 13.675 14.075 12 12 12ZM4.5 4.5H15.75V9.5H4.5V4.5Z"
+                                            fill="#546881" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+                <div class="box-3" style="grid-area:box-3;">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span class="title">بيانات المولود</span>
+                            <span class="edit-icon">
+                                <svg class="edit" width="20" height="20" viewBox="0 0 26 26" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13 3.25H5.41667C4.84203 3.25 4.29093 3.47827 3.8846 3.8846C3.47827 4.29093 3.25 4.84203 3.25 5.41667V20.5833C3.25 21.158 3.47827 21.7091 3.8846 22.1154C4.29093 22.5217 4.84203 22.75 5.41667 22.75H20.5833C21.158 22.75 21.7091 22.5217 22.1154 22.1154C22.5217 21.7091 22.75 21.158 22.75 20.5833V13"
+                                        stroke="#2B4254" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M19.906 2.84302C20.337 2.41204 20.9215 2.16992 21.531 2.16992C22.1405 2.16992 22.725 2.41204 23.156 2.84302C23.587 3.274 23.8291 3.85853 23.8291 4.46802C23.8291 5.07751 23.587 5.66204 23.156 6.09302L13.3919 15.8582C13.1347 16.1152 12.8169 16.3033 12.4679 16.4053L9.35544 17.3153C9.26222 17.3425 9.16341 17.3441 9.06934 17.32C8.97528 17.2959 8.88942 17.2469 8.82076 17.1783C8.7521 17.1096 8.70316 17.0238 8.67906 16.9297C8.65496 16.8356 8.65659 16.7368 8.68378 16.6436L9.59378 13.5312C9.69618 13.1824 9.88469 12.865 10.1419 12.6082L19.906 2.84302Z"
+                                        stroke="#2B4254" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+
+                                <svg class="cancel ms-3" width="20" height="20" viewBox="0 0 66 83" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M32.9997 41.8414L55.0955 63.9372C56.268 65.1097 57.8582 65.7684 59.5163 65.7684C61.1745 65.7684 62.7647 65.1097 63.9371 63.9372C65.1096 62.7647 65.7683 61.1745 65.7683 59.5164C65.7683 57.8583 65.1096 56.268 63.9371 55.0956L41.833 32.9997L63.933 10.9039C64.5133 10.3233 64.9735 9.63418 65.2874 8.87576C65.6014 8.11733 65.7629 7.3045 65.7627 6.48367C65.7625 5.66284 65.6006 4.85008 65.2863 4.09181C64.972 3.33353 64.5115 2.64459 63.9309 2.06431C63.3503 1.48403 62.6612 1.02378 61.9028 0.709844C61.1443 0.395904 60.3315 0.234421 59.5107 0.234614C58.6898 0.234808 57.8771 0.396673 57.1188 0.71097C56.3605 1.02527 55.6716 1.48584 55.0913 2.06639L32.9997 24.1622L10.9038 2.06639C10.3276 1.46919 9.63813 0.992731 8.87576 0.66482C8.11339 0.33691 7.29335 0.164112 6.46348 0.156512C5.63362 0.148912 4.81055 0.306661 4.04231 0.620554C3.27406 0.934447 2.57602 1.3982 1.98892 1.98475C1.40181 2.5713 0.937403 3.2689 0.622786 4.03685C0.308168 4.8048 0.149643 5.62772 0.156461 6.45759C0.163278 7.28746 0.335301 8.10767 0.662492 8.87034C0.989684 9.63302 1.46549 10.3229 2.06215 10.8997L24.1663 32.9997L2.06632 55.0997C1.46966 55.6766 0.993852 56.3664 0.666661 57.1291C0.339469 57.8918 0.167445 58.712 0.160627 59.5419C0.15381 60.3717 0.312335 61.1946 0.626952 61.9626C0.94157 62.7305 1.40598 63.4281 1.99308 64.0147C2.58019 64.6012 3.27823 65.065 4.04647 65.3789C4.81472 65.6928 5.63779 65.8505 6.46765 65.8429C7.29751 65.8353 8.11755 65.6625 8.87992 65.3346C9.64229 65.0067 10.3317 64.5303 10.908 63.9331L32.9997 41.8414Z"
+                                        fill="#546881" />
+                                </svg>
+
+                            </span>
+                        </div>
+                        <div class="card-body info-card">
+                            <p><strong>اسم طفلك:</strong> <span id="baby_name_info">لا يوجد </span> </p>
+                            <p><strong>تاريخ الميلاد:</strong> <span id="baby_birthday_info"> غير محدد</span></p>
+                            <p><strong>الجنس:</strong> <span id="baby_gender_info">غير محدد </span></p>
+                            <p><strong>صورة:</strong></p>
+                            <img id="baby_picture_display" src="{% static 'images/Logo/CustomerBabyIcon.png'%}" alt="صورة الطفل" class="profile-img">
+                        </div>
+                        <form method="POST" enctype="multipart/form-data" class="card-body form-card" id="formtestbaby" style="background: #f9fcff;">
+                            {% csrf_token %}
+                            <div class="mb-2">
+                                <label>اسم طفلك</label>
+                                <input type="text" id="baby_name_input" class="form-control" value="" name="baby_name">
+                            </div>
+
+                            <div class="mb-2">
+                                <label>تاريخ الميلاد</label>
+                                <input type="date" id="baby_birthday_input" class="form-control" value="" name="baby_birthday">
+                            </div>
+
+                            <div>
+                                <label>جنس الطفل</label>
+                                <div class="ui selection fluid  dropdown" id="gender" style="margin-bottom: 1rem; border: 2px solid var(--color-gray-light); border-radius: 0; box-shadow: none;">
+                                    <input type="hidden" id="baby_gender_input" name="gender" value="">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text"  id="gender-text" value=""> 
+                                        {% comment %} جنس الطفل  {% endcomment %}
+                                        {% comment %} ذكر {% endcomment %}
+                                    </div>
+                                    <div class="menu" id="gender-data-box">
+                                            <div class="item" data-value="0">ذكر</div>
+                                            <div class="item" data-value="1">أنثى</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label>صورة</label>
+                                <input type="file" id="baby_picture_input" class="form-control" value="" name="baby_picture">
+                            </div>
+
+                            <div class="btn-primary-one-span">
+                                <button class="btn-primary-save w-100" type="submit" >
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M18.25 0.75H3.25C2.58696 0.75 1.95107 1.01339 1.48223 1.48223C1.01339 1.95107 0.75 2.58696 0.75 3.25V20.75C0.75 21.413 1.01339 22.0489 1.48223 22.5178C1.95107 22.9866 2.58696 23.25 3.25 23.25H20.75C22.125 23.25 23.25 22.125 23.25 20.75V5.75L18.25 0.75ZM20.75 20.75H3.25V3.25H17.2125L20.75 6.7875V20.75ZM12 12C9.925 12 8.25 13.675 8.25 15.75C8.25 17.825 9.925 19.5 12 19.5C14.075 19.5 15.75 17.825 15.75 15.75C15.75 13.675 14.075 12 12 12ZM4.5 4.5H15.75V9.5H4.5V4.5Z"
+                                            fill="#546881" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/forms.js' %}"></script>
+    {% comment %} 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>  
+    {% endcomment %}
+    <script>
+
+        $('.ui.dropdown').dropdown({
+            // forceSelection: false
+        });
+        
+        // ✅ التحقق من الهاتف أثناء الكتابة
+        const phoneInput = document.getElementById("phone");
+        if (phoneInput) {
+            phoneInput.addEventListener("input", function () {
+                if (typeof runValidatePhoneInput === "function") {
+                    runValidatePhoneInput();
+                }
+            });
+        }
+
+        // ✅ التحقق عند إرسال النموذج
+        const form1 = document.getElementById("form1");
+        form1.addEventListener("submit", function (e) {
+            let isValid = true;
+
+            if (typeof runValidateAllFields === "function") {
+                isValid = isValid && runValidateAllFields();
+            }
+            
+            if (typeof runValidatePhoneInput === "function") {
+                isValid = isValid && runValidatePhoneInput();
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        const form2 = document.getElementById("form2");
+        form2.addEventListener("submit", function (e) {
+            let isValid = true;
+
+            if (typeof runValidateAllFields === "function") {
+                isValid = isValid && runValidateAllFields();
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        document.querySelectorAll(".account-section .edit-icon").forEach(iconContainer => {
+            let editIcon = iconContainer.querySelector(".edit");
+            let cancelIcon = iconContainer.querySelector(".cancel");
+            let card = iconContainer.closest(".card"); 
+            if (!card) return; 
+
+            let form = card.querySelector(".form-card");
+            let displayInfo = card.querySelector(".info-card");
+            form.style.display = "none";
+
+            if (cancelIcon) cancelIcon.style.display = "none"; 
+
+            if (editIcon) {
+                editIcon.addEventListener("click", function () {
+                    if (form && displayInfo) {
+                        form.style.display = "block";
+                        displayInfo.style.display = "none";
+                        editIcon.style.display = "none";
+                        if (cancelIcon) cancelIcon.style.display = "inline-block";
+                    }
+                });
+            }
+
+            if (cancelIcon) {
+                cancelIcon.addEventListener("click", function () {
+                    if (form && displayInfo) {
+                        form.style.display = "none";
+                        displayInfo.style.display = "block";
+                        if (editIcon) editIcon.style.display = "inline-block";
+                        cancelIcon.style.display = "none";
+                    }
+                });
+            }
+        });
+        
+        function readProfileUser() {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'get_json_data_info_user' %}",
+                dataType: "json",
+                success: function(response) {
+                    // تحديث قيم الـ Inputs
+                    $("#firstName").val(response.user.first_name || "");
+                    $("#lastName").val(response.user.last_name || "");
+                    $("#phone").val(response.user.phone_number || "");
+        
+                    $("#fname-info").text(response.user.first_name || "لم يتم التحديد");
+                    $("#lname-info").text(response.user.last_name || "لم يتم التحديد");
+                    $("#phone-info").text(response.user.phone_number || "لم يتم التحديد");
+                    $("#email-info").text(response.user.email || "لم يتم التحديد");
+                    $("#email-info2").text(response.user.email || "لم يتم التحديد");
+                },
+                error: function(xhr) {
+                    console.log("Failed", xhr.status, xhr.responseText);
+                }
+            });
+        }
+
+        function readBabyInfo() {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'get_json_data_baby_info' %}",
+                dataType: "json",
+                success: function(response) {
+                    if (response.status === "success") {
+                        // تحديث الـ Inputs
+                        $("#baby_name_input").val(response.baby.baby_name || "");
+                        $("#baby_birthday_input").val(response.baby.baby_birthday || "");
+                        $("#baby_gender_input").val(response.baby.baby_gender || "");
+        
+                        // تحديث النصوص داخل <div class="baby-info">
+                        $("#baby_name_info").text(response.baby.baby_name || "لم يتم التحديد");
+                        $("#baby_birthday_info").text(response.baby.baby_birthday || "لم يتم التحديد");
+                        $("#baby_gender_info").text(response.baby.baby_gender === "0" ? "ذكر" : "أنثى");
+        
+                        // تحديث اختيار الجنس في الـ Dropdown يدويًا
+                        let genderValue = response.baby.baby_gender;
+                        console.log(genderValue)
+                        if (genderValue === "0") {
+                            $("#baby_gender_input").val("0");
+                            $("#baby_gender_input").text("ذكر");
+                            $("#gender-text").text("ذكر");
+                        } else if (genderValue === "1") {
+                            $("#baby_gender_input").val("1");
+                            $("#baby_gender_input").text("أنثى");
+
+                            $("#gender-text").text("أنثى");
+                        }
+        
+                        // تحديث الصورة
+                        if (response.baby.baby_picture) {
+                            $("#baby_picture_display").attr("src", response.baby.baby_picture);
+                        } else {
+                            $("#baby_picture_display").attr("src", "/static/default-baby.png");
+                        }
+                        console.log("Baby Picture URL:", response.baby.baby_picture);
+
+                    } else {
+                        {% comment %} alert("لم يتم العثور على بيانات الطفل."); {% endcomment %}
+                    }
+                },
+                error: function(xhr) {
+                    console.log("Failed", xhr.status, xhr.responseText);
+                }
+            });
+        }
+        
+        function readProfileCustomer() {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'get_json_data_info_customer' %}",
+                dataType: "json",
+                success: function(response) {
+                    $("#city-input").val(response.customer.city ? response.customer.city.id : "pass");
+                    $("#street-input").val(response.customer.street ? response.customer.street.id : "--------");
+        
+                    $("#street-text").text(response.customer.street ? response.customer.street.name : "اختر الشارع");
+                    $("#city-text").text(response.customer.city ? response.customer.city.name : "اختر المحافظة");
+                    
+                    
+                    $("#address-input").val(response.customer.address || "");
+                    $("#additional_phone").val(response.customer.additional_phone || "");
+
+                    // تحديث النصوص داخل الـ <div class="card-body info-card">
+                    $("#city-info").text(response.customer.city ? response.customer.city.name : "لم يتم التحديد");
+                    $("#street-info").text(response.customer.street ? response.customer.street.name : "لم يتم التحديد");
+                    $("#address-info").text(response.customer.address ? response.customer.address : "لم يتم التحديد");
+                    $("#additional-phone-info").text(response.customer.additional_phone ? response.customer.additional_phone : "لم يتم التحديد");
+                },
+                error: function(xhr) {
+                    console.log("Failed", xhr.status, xhr.responseText);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            readProfileUser();
+            readProfileCustomer();
+            readBabyInfo();
+
+            {% comment %} form 1 {% endcomment %}
+            $("#form1").on("submit", function (e) {
+                e.preventDefault();  
+
+                let formData = {
+                    first_name: $("#firstName").val(),
+                    last_name: $("#lastName").val(),
+                    phone_number: $("#phone").val(),
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()  
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'update_profile' %}",  
+                    data: formData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            readProfileUser();
+                            showAlert('success', ' تم تحديث البيانات الشخصية ');
+                        } else {
+                            showAlert('error', ' حدث خطأ أثناء التحديث!');
+                        }
+                    },
+                    error: function () {
+                        alert("فشل الاتصال بالسيرفر!");
+                    }
+                });
+            });
+
+            {% comment %} form dropdown {% endcomment %}
+            const citiesDataBox = document.getElementById("cities-data-box");
+            $.ajax({
+                type: "GET",
+                url: "/ar/account/get_json_data_cities/",  
+                dataType: "json",
+                success: function(response){
+                    console.log(response.qs_value);
+                    const cityData = response.qs_value
+                    cityData.map(item=>{
+                        console.log(item);
+                        const option = document.createElement('div');
+                        option.textContent = item.name;
+                        option.setAttribute('class', 'item')
+                        option.setAttribute('data-value', item.id)
+                        citiesDataBox.appendChild(option);
+                    })
+                },
+                error: function(xhr) {
+                    console.log("Failed", xhr.status, xhr.responseText);
+                }
+            });
+            const cityInput = document.getElementById("city-input");
+            const streetDataBox = document.getElementById("street-data-box");
+            const streetText = document.getElementById("street-text");
+
+            cityInput.addEventListener('change', e=>{
+                streetDataBox.innerHTML = ""
+                streetText.textContent = "الشارع";
+                streetText.classList.add("default")
+                
+                 console.log(e.target.value);
+                 const selectedCity = e.target.value;
+                 $.ajax({
+                    type: "GET",
+                    url: `/ar/account/get_json_data_street/${selectedCity}`, 
+                    dataType: "json",
+                    success: function(response){
+                        console.log(response);
+                        const streetData = response.obj_street
+                        streetData.map(item=> {
+                            console.log(item);
+                            const option = document.createElement('div');
+                            option.textContent = item.name;
+                            option.setAttribute('class', 'item')
+                            option.setAttribute('data-value', item.id)
+                            streetDataBox.appendChild(option);
+                        })
+                    },
+                    error: function(xhr) {
+                        console.log("Failed", xhr.status, xhr.responseText);
+                    }
+
+                 })
+
+
+            })
+            // end dropdown
+            // start test form2 json
+            {% comment %} form 2 {% endcomment %}
+            $("#form2").on("submit", function (e) {
+                e.preventDefault();  
+
+                let formData = {
+                    city: $("#city-input").val(),
+                    street: $("#street-input").val(),
+                    address: $("#address-input").val(),
+                    additional_phone: $("#additional_phone").val(),
+
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()  // حماية CSRF
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'update_or_create_customer' %}", 
+                    data: formData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status === "success") {
+                            readProfileCustomer();
+                            {% comment %} alert(" ياااااي تم تحديث بيانات الموقع والتوصبل !"); {% endcomment %}
+                            showAlert('success', ' تم تحديث بيانات الموقع و التوصبل ');
+                        } else {
+                            {% comment %} alert(" احححححححح حدث خطأ أثناء التحديث!"); {% endcomment %}
+                            showAlert('error', ' حدث خطأ أثناء التحديث!');
+                        }
+                    },
+                    error: function () {
+                        alert(" تااااني فشل الاتصال بالسيرفر!");
+                    }
+                });
+            });
+            //end
+            // get info baby:
+            {% comment %} form 3 {% endcomment %}
+            $("#formtestbaby").on("submit", function (e) {
+                e.preventDefault();
+            
+                let formData = new FormData();
+                formData.append("baby_name_input", $("#baby_name_input").val());
+                formData.append("baby_birthday_input", $("#baby_birthday_input").val());
+                formData.append("baby_gender_input", $("#baby_gender_input").val());
+                formData.append("baby_picture_input", $("#baby_picture_input")[0].files[0]);  
+                formData.append("csrfmiddlewaretoken", $("input[name=csrfmiddlewaretoken]").val());
+                console.log($("input[name=csrfmiddlewaretoken]").val());
+
+            
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'update_json_data_baby_info' %}", 
+                    data: formData,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        console.log(formData.get("baby_name_input"));
+                        console.log(formData.get("baby_birthday_input"));
+                        console.log(formData.get("baby_picture_input"));
+                        console.log(formData.get("baby_gender_input"));
+                        console.log($("input[name=csrfmiddlewaretoken]").val());
+                        readBabyInfo();
+
+                        if (response.status === "success") {
+                            showAlert(response.status, response.message);
+                        } else {
+                            showAlert(response.status, response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("فشل الاتصال بالسيرفر!");
+                    }
+                });
+            });   
+        });
+    </script>
+{% endblock %}

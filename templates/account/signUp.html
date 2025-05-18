@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %} 
+
+{% block content %}
+{% comment %} 📌form  🔗Link  🛑delete 🔴Loop ❌endLoop 🌸done {% endcomment %}
+{% comment %} {% include 'parts/message.html' %} {% endcomment %}
+
+    <section class="account-section ">
+        <div class="container form-container mb-3">
+            <form method="POST" class="form-container-1" id="contactForm">
+                {% csrf_token %} 
+                {{ form.errors }}
+                <h1 class="form-title"> انشاء حساب </h1>
+                <div class="row mb-3">
+                    <div class="col filde-container">
+                        <label class="form-label">الاسم الأول</label>
+                        {% comment %} <input type="text" class="form-control " id="firstName" placeholder="الاسم"> {% endcomment %}
+                        {{ form.first_name }}
+                        <div class="invalid-feedback">الرجاء إدخال الاسم الأول</div>
+                    </div>
+                    <div class="col filde-container">
+                        <label class="form-label">اسم العائلة</label>
+                        {% comment %} <input type="text" class="form-control" id="lastName" placeholder="العائلة"> {% endcomment %}
+                        {{ form.last_name }}
+                        <div class="invalid-feedback">الرجاء إدخال اسم العائلة</div>
+                    </div>
+                </div>
+                <div class="phone mb-3 filde-container">
+                    <label class="form-label">رقم الهاتف</label>
+                    <div class="input-group">
+                        <span class="input-group-text">+967</span>
+                        {% comment %} <input type="tel" class="form-control" id="phone" placeholder="7xx xxx xxx" pattern="[7-9][0-9]{8}"> {% endcomment %}
+                        {{ form.phone_number }}
+                    </div>
+                    <div class="invalid-feedback">الرجاء إدخال رقم هاتف صحيح</div>
+                </div>
+                
+                <div class="email mb-3 filde-container">
+                    <label class="form-label">الإيميل</label>
+                    {% comment %} <input type="email" class="en form-control" id="email" placeholder="emailgmail.com"> {% endcomment %}
+                    {{ form.email }}
+                    <div class="invalid-feedback">الرجاء إدخال بريد إلكتروني صحيح</div>
+                </div>
+                <div class="password mb-3 filde-container">
+                    <label for="password" class="form-label">كلمة السر</label>
+                    <div class="input-group form-control-border">
+
+                        {% comment %} <input type="password" id="password" class="en form-control border-0" placeholder="********" oninput="restrictToEnglish(event, 'englishInput')"> {% endcomment %}
+                        {{ form.password1 }}
+                        
+                        <button type="button" class="d-flex justify-content-center align-items-center"
+                            onclick="togglePassword('password', this)">
+
+                            <svg class="on" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.25 5.57507C12.4626 5.18983 13.7277 4.99583 15 5.00007C20.2275 5.00007 23.785 8.12507 25.9063 10.8801C26.9688 12.2626 27.5 12.9513 27.5 15.0001C27.5 17.0501 26.9688 17.7388 25.9063 19.1201C23.785 21.8751 20.2275 25.0001 15 25.0001C9.7725 25.0001 6.215 21.8751 4.09375 19.1201C3.03125 17.7401 2.5 17.0488 2.5 15.0001C2.5 12.9501 3.03125 12.2613 4.09375 10.8801C4.74188 10.0336 5.46343 9.24596 6.25 8.52632"
+                                    stroke="#2B4254" stroke-width="1.875" stroke-linecap="round" />
+                                <path
+                                    d="M18.75 15C18.75 15.9946 18.3549 16.9484 17.6517 17.6517C16.9484 18.3549 15.9946 18.75 15 18.75C14.0054 18.75 13.0516 18.3549 12.3483 17.6517C11.6451 16.9484 11.25 15.9946 11.25 15C11.25 14.0054 11.6451 13.0516 12.3483 12.3483C13.0516 11.6451 14.0054 11.25 15 11.25C15.9946 11.25 16.9484 11.6451 17.6517 12.3483C18.3549 13.0516 18.75 14.0054 18.75 15Z"
+                                    stroke="#2B4254" stroke-width="1.875" />
+                            </svg>
+
+
+                            <svg class="off  d-none" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.4125 6.34125C13.9395 6.28024 14.4695 6.24977 15 6.25C20.83 6.25 25.5 9.87875 27.5 15C27.0158 16.2457 26.3617 17.4185 25.5562 18.485M8.15 8.14875C5.6 9.705 3.625 12.1163 2.5 15C4.5 20.1213 9.17 23.75 15 23.75C17.4152 23.7627 19.7865 23.105 21.85 21.85M12.35 12.35C12.0018 12.6983 11.7255 13.1117 11.537 13.5667C11.3486 14.0217 11.2516 14.5094 11.2516 15.0019C11.2516 15.4944 11.3486 15.9821 11.537 16.4371C11.7255 16.8921 12.0018 17.3055 12.35 17.6538C12.6982 18.002 13.1117 18.2782 13.5667 18.4667C14.0217 18.6552 14.5094 18.7522 15.0019 18.7522C15.4944 18.7522 15.9821 18.6552 16.4371 18.4667C16.8921 18.2782 17.3055 18.002 17.6538 17.6538"
+                                    stroke="#2B4254" stroke-width="1.875" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M5 5L25 25" stroke="#2B4254" stroke-width="1.875" stroke-linecap="round" />
+                            </svg>
+
+                        </button>
+                    </div>
+                    <!-- <div class="invalid-feedback">الرجاء إدخال كلمة مرور صالحة </div> -->
+
+                    <div class="invalid-feedback">يجب أن تكون كلمة المرور أكثر من 8، مكونة من أرقام وحروف كبيرة وصغيرة.
+                    </div>
+
+                </div>
+                <div class="confirm-password mb-3 filde-container">
+                    <label for="password" class="form-label">تأكيد كلمة السر </label>
+                    <div class="input-group form-control-border">
+                        {% comment %} <input type="password" id="confirm-password" class="en form-control border-0" placeholder="********" oninput="restrictToEnglish(event, 'englishInput')"> {% endcomment %}
+                        {{ form.password2 }}
+                        
+                        <button type="button" class="d-flex justify-content-center align-items-center"
+                            onclick="togglePassword('confirm-password', this)">
+
+                            <svg class="on" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.25 5.57507C12.4626 5.18983 13.7277 4.99583 15 5.00007C20.2275 5.00007 23.785 8.12507 25.9063 10.8801C26.9688 12.2626 27.5 12.9513 27.5 15.0001C27.5 17.0501 26.9688 17.7388 25.9063 19.1201C23.785 21.8751 20.2275 25.0001 15 25.0001C9.7725 25.0001 6.215 21.8751 4.09375 19.1201C3.03125 17.7401 2.5 17.0488 2.5 15.0001C2.5 12.9501 3.03125 12.2613 4.09375 10.8801C4.74188 10.0336 5.46343 9.24596 6.25 8.52632"
+                                    stroke="#2B4254" stroke-width="1.875" stroke-linecap="round" />
+                                <path
+                                    d="M18.75 15C18.75 15.9946 18.3549 16.9484 17.6517 17.6517C16.9484 18.3549 15.9946 18.75 15 18.75C14.0054 18.75 13.0516 18.3549 12.3483 17.6517C11.6451 16.9484 11.25 15.9946 11.25 15C11.25 14.0054 11.6451 13.0516 12.3483 12.3483C13.0516 11.6451 14.0054 11.25 15 11.25C15.9946 11.25 16.9484 11.6451 17.6517 12.3483C18.3549 13.0516 18.75 14.0054 18.75 15Z"
+                                    stroke="#2B4254" stroke-width="1.875" />
+                            </svg>
+
+
+                            <svg class="off  d-none" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.4125 6.34125C13.9395 6.28024 14.4695 6.24977 15 6.25C20.83 6.25 25.5 9.87875 27.5 15C27.0158 16.2457 26.3617 17.4185 25.5562 18.485M8.15 8.14875C5.6 9.705 3.625 12.1163 2.5 15C4.5 20.1213 9.17 23.75 15 23.75C17.4152 23.7627 19.7865 23.105 21.85 21.85M12.35 12.35C12.0018 12.6983 11.7255 13.1117 11.537 13.5667C11.3486 14.0217 11.2516 14.5094 11.2516 15.0019C11.2516 15.4944 11.3486 15.9821 11.537 16.4371C11.7255 16.8921 12.0018 17.3055 12.35 17.6538C12.6982 18.002 13.1117 18.2782 13.5667 18.4667C14.0217 18.6552 14.5094 18.7522 15.0019 18.7522C15.4944 18.7522 15.9821 18.6552 16.4371 18.4667C16.8921 18.2782 17.3055 18.002 17.6538 17.6538"
+                                    stroke="#2B4254" stroke-width="1.875" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M5 5L25 25" stroke="#2B4254" stroke-width="1.875" stroke-linecap="round" />
+                            </svg>
+
+                        </button>
+                    </div>
+                    <div class="invalid-feedback">الرجاء إدخال كلمة مرور صالحة </div>
+                </div>
+
+                {% comment %} 
+                <div class="form-check terms">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        أوافق على تلقي التحديثات و العروض
+
+                    </label>
+                    <div class="boxAgreement">
+                        <span class="muted">
+                            <span data-bs-toggle="tooltip" data-bs-title=" من خلال إدخال معلوماتك الشخصية والتسجيل أدناه، فإنك توافق على تلقي اتصالات من  القمر الصغير، بما في ذلك الرسائل النصية والبريد الإلكتروني حول منتجاتنا وخدماتنا، والعروض الترويجية، والمعلومات التسويقية ذات الصلة. نضمن أن تكون بياناتك آمنة ومحمية، ويتم مشاركتها فقط مع شركائنا الموثوقين لتقديم تجربة تسوق مميزة تلبي احتياجاتك.">
+                                <svg width="23" height="23" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M15 20.625C15.1783 20.625 15.3271 20.565 15.4463 20.445C15.5654 20.325 15.625 20.1767 15.625 20V14.375C15.625 14.1975 15.565 14.0492 15.445 13.93C15.325 13.8108 15.1762 13.7508 14.9987 13.75C14.8212 13.7492 14.6729 13.8092 14.5537 13.93C14.4346 14.0508 14.375 14.1992 14.375 14.375V20C14.375 20.1775 14.435 20.3258 14.555 20.445C14.675 20.5642 14.8238 20.6242 15.0013 20.625M15 11.9712C15.2183 11.9712 15.4013 11.8975 15.5488 11.75C15.6963 11.6025 15.7696 11.42 15.7687 11.2025C15.7679 10.985 15.6942 10.8021 15.5475 10.6537C15.4008 10.5054 15.2183 10.4317 15 10.4325C14.7817 10.4333 14.5992 10.5071 14.4525 10.6537C14.3058 10.8004 14.2321 10.9833 14.2313 11.2025C14.2304 11.4217 14.3042 11.6042 14.4525 11.75C14.6008 11.8958 14.7833 11.9696 15 11.9712ZM15.0038 26.25C13.4479 26.25 11.9854 25.955 10.6163 25.365C9.24708 24.7742 8.05583 23.9725 7.0425 22.96C6.02917 21.9475 5.22708 20.7575 4.63625 19.39C4.04542 18.0225 3.75 16.5604 3.75 15.0038C3.75 13.4471 4.04542 11.9846 4.63625 10.6163C5.22625 9.24708 6.02667 8.05583 7.0375 7.0425C8.04833 6.02917 9.23875 5.22708 10.6088 4.63625C11.9788 4.04542 13.4412 3.75 14.9962 3.75C16.5512 3.75 18.0138 4.04542 19.3837 4.63625C20.7529 5.22625 21.9442 6.02708 22.9575 7.03875C23.9708 8.05042 24.7729 9.24083 25.3638 10.61C25.9546 11.9792 26.25 13.4412 26.25 14.9962C26.25 16.5512 25.955 18.0138 25.365 19.3837C24.775 20.7537 23.9733 21.945 22.96 22.9575C21.9467 23.97 20.7567 24.7721 19.39 25.3638C18.0233 25.9554 16.5613 26.2508 15.0038 26.25ZM15 25C17.7917 25 20.1562 24.0312 22.0937 22.0937C24.0312 20.1562 25 17.7917 25 15C25 12.2083 24.0312 9.84375 22.0937 7.90625C20.1562 5.96875 17.7917 5 15 5C12.2083 5 9.84375 5.96875 7.90625 7.90625C5.96875 9.84375 5 12.2083 5 15C5 17.7917 5.96875 20.1562 7.90625 22.0937C9.84375 24.0312 12.2083 25 15 25Z"
+                                        fill="#393E41" />
+                                </svg>
+                            </span> 
+                        </span>
+                    </div>
+                </div>
+                 {% endcomment %}
+                <div class="form-group">
+                    <p class="TermsConditions">
+                        من خلال إنشاء حساب، فإنك تقبل <a href="{% url 'atc' %}" class="text-decoration-underline"> شروطنا وأحكامنا</a> و<a href="{% url 'atc' %}" class="text-decoration-underline">سياسةالخصوصية</a> وملفات تعريف الارتباط .
+                    </p>
+                </div>
+
+
+                <button class="btn-primary-one w-100" type="submit" id="btnSignUp" name="btnSignUp"> انشاء حساب
+                </button>
+
+                <div class="account-link text-center mt-3">
+                    <a href="{% url 'signIn' %}" class="text-decoration-none mt-2"> هل لديك حساب بالفعل؟ <strong
+                            class="text-primary text-decoration-underline">تسجيل الدخول</strong></a>
+                </div>
+            </form>
+
+
+        </div>
+    </section>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => 
+        new bootstrap.Tooltip(tooltipTriggerEl))
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            validatePassword();
+            validateConfirmPassword();
+            // ✅ التحقق من الهاتف أثناء الكتابة
+            const phoneInput = document.getElementById("phone");
+            if (phoneInput) {
+                phoneInput.addEventListener("input", function () {
+                    if (typeof runValidatePhoneInput === "function") {
+                        runValidatePhoneInput();
+                    }
+                });
+            }
+
+            // ✅ التحقق عند إرسال النموذج
+            const form = document.getElementById("contactForm");
+            form.addEventListener("submit", function (e) {
+                let isValid = true;
+
+                if (typeof runValidateAllFields === "function") {
+                    isValid = isValid && runValidateAllFields();
+                }
+                if (typeof runValidateEmail === "function") {
+                    isValid = isValid && runValidateEmail();
+                }
+                if (typeof runValidatePhoneInput === "function") {
+                    isValid = isValid && runValidatePhoneInput();
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    console.log('تم منع إرسال النموذج لوجود أخطاء.');
+                }
+            });
+        });
+
+        // ✅ دالة تبديل إظهار/إخفاء كلمة المرور
+        function togglePassword(fieldId, button) {
+            const passwordField = document.getElementById(fieldId);
+            const eyeOpen = button.querySelector('.on');
+            const eyeClosed = button.querySelector('.off');
+
+            const isPassword = passwordField.type === 'password';
+            passwordField.type = isPassword ? 'text' : 'password';
+
+            eyeOpen.classList.toggle('d-none', !isPassword);
+            eyeClosed.classList.toggle('d-none', isPassword);
+        }
+    </script>
+{% endblock %}    

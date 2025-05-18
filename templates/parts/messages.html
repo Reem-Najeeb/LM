@@ -1,0 +1,68 @@
+{% load static %}
+{% if messages %}
+    {% for msg in messages %}
+        <div class="messages {{ msg.tags }}" id="message_{{ forloop.counter }}">
+            <div class="message-body d-flex">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15 21.25C15.3542 21.25 15.6513 21.13 15.8913 20.89C16.1313 20.65 16.2508 20.3533 16.25 20C16.2492 19.6467 16.1292 19.35 15.89 19.11C15.6508 18.87 15.3542 18.75 15 18.75C14.6458 18.75 14.3492 18.87 14.11 19.11C13.8708 19.35 13.7508 19.6467 13.75 20C13.7492 20.3533 13.8692 20.6504 14.11 20.8912C14.3508 21.1321 14.6475 21.2517 15 21.25ZM15 16.25C15.3542 16.25 15.6513 16.13 15.8913 15.89C16.1313 15.65 16.2508 15.3533 16.25 15V10C16.25 9.64583 16.13 9.34917 15.89 9.11C15.65 8.87083 15.3533 8.75083 15 8.75C14.6467 8.74917 14.35 8.86917 14.11 9.11C13.87 9.35083 13.75 9.6475 13.75 10V15C13.75 15.3542 13.87 15.6513 14.11 15.8913C14.35 16.1313 14.6467 16.2508 15 16.25ZM15 27.5C13.2708 27.5 11.6458 27.1717 10.125 26.515C8.60417 25.8583 7.28125 24.9679 6.15625 23.8438C5.03125 22.7196 4.14084 21.3967 3.485 19.875C2.82917 18.3533 2.50083 16.7283 2.5 15C2.49917 13.2717 2.8275 11.6467 3.485 10.125C4.1425 8.60333 5.03292 7.28042 6.15625 6.15625C7.27959 5.03208 8.6025 4.14167 10.125 3.485C11.6475 2.82833 13.2725 2.5 15 2.5C16.7275 2.5 18.3525 2.82833 19.875 3.485C21.3975 4.14167 22.7204 5.03208 23.8438 6.15625C24.9671 7.28042 25.8579 8.60333 26.5163 10.125C27.1746 11.6467 27.5025 13.2717 27.5 15C27.4975 16.7283 27.1692 18.3533 26.515 19.875C25.8608 21.3967 24.9704 22.7196 23.8438 23.8438C22.7171 24.9679 21.3942 25.8587 19.875 26.5162C18.3558 27.1737 16.7308 27.5017 15 27.5Z"
+                        fill="#47586E" />
+                </svg>
+                <div class="messages-content">
+                    <h4 class="messages-title">  {{ msg.tags|title }} </h4>
+                    <h6 class="messages-text">
+                        {{ msg }}
+                    </h6>
+                </div>
+            </div>
+            <button class="btn-close close-message" aria-label="Close" data-id="message_{{ forloop.counter }}"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+{% block javascript %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const closeButtons = document.querySelectorAll(".close-message");
+            
+            closeButtons.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const messageId = this.getAttribute("data-id");
+                    const messageBox = document.getElementById(messageId);
+                    if (messageBox) {
+                        messageBox.style.display = "none";
+                    }
+                });
+            });
+        
+            // إخفاء الرسائل تلقائيًا بعد 5 ثوانٍ
+            setTimeout(() => {
+                document.querySelectorAll(".messages").forEach((msg) => {
+                    msg.style.opacity = "0";
+                    setTimeout(() => msg.style.display = "none", 500);
+                });
+            }, 5000);
+        });
+    </script>
+        
+{% endblock javascript%}
+
+
+
+    {% comment %} <script>
+        const btnCloseMessages = document.getElementById("btn_close_messages");
+        const closeMessages = document.getElementById("close_messages");
+        function hideMessage() {
+            closeMessages.classList.add("hide");
+        }
+
+        function showMessage() {
+            closeMessages.classList.remove("hide");
+            setTimeout(hideMessage, 5000);
+        }
+        btnCloseMessages.addEventListener("click", hideMessage);
+
+        showMessage(); 
+    </script> {% endcomment %}

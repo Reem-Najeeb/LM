@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Contact Us {% endblock %} 
+
+{% block content %}
+    <!-- Advertising -->
+    
+    <!-- Header -->
+
+    <!-- Search -->
+   
+    <section class="contactUs-section ">
+        <div class="container form-container  mb-3">
+            {% comment %} 📌form {% endcomment %}
+            <form class="form-container-1" id="contactForm" novalidate>
+                <h1 class="form-title"> يسعدنا تواصلكم معنا</h1>
+                <div class="row mb-3">
+                    <div class="col filde-container">
+                        <label class="form-label">الاسم الأول</label>
+                        <input type="text" class="form-control " id="firstName" name="firstName" placeholder="الاسم">
+                        <div class="invalid-feedback">الرجاء إدخال الاسم الأول</div>
+                        <!-- <div class="invalid">الرجاء إدخال الاسم الأول</div> -->
+                    </div>
+                    <div class="col filde-container">
+                        <label class="form-label">اسم العائلة</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="العائلة">
+                        <div class="invalid-feedback">الرجاء إدخال اسم العائلة</div>
+                    </div>
+                </div>
+                <div class="phone mb-3 filde-container">
+                    <label class="form-label">رقم الهاتف</label>
+                    <div class="input-group">
+                        <span class="input-group-text">+967</span>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="7xx xxx xxx"
+                            pattern="[7-9][0-9]{8}">
+                    </div>
+                    <div class="invalid-feedback">الرجاء إدخال رقم هاتف صحيح</div>
+                </div>
+                <div class="email mb-3 filde-container">
+                    <label class="form-label">الإيميل</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="email@gmail.com">
+                    <div class="invalid-feedback">الرجاء إدخال بريد إلكتروني صحيح</div>
+                </div>
+                <div class="mb-3 filde-container">
+                    <label class="form-label">الرسالة</label>
+                    <textarea class="form-control" id="message" name="message" rows="3"
+                        placeholder=" الرسالة"></textarea>
+                    <div class="invalid-feedback">الرجاء إدخال الرسالة</div>
+                </div>
+                <button class="btn-primary-one w-100" type="submit" id="btnContactUS" onclick="sendToWhatsapp();"> ارسال </button>
+
+            </form>
+            
+        </div>
+    </section>
+
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"> </script>
+
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("تم تحميل DOM بالكامل!");
+            const phoneInput = document.getElementById("phone");
+            if (phoneInput) {
+                phoneInput.addEventListener("input", function () {
+                    runValidatePhoneInput(); 
+                    // استدعاء التحقق أثناء الكتابة
+                });
+            }
+    
+            const form = document.getElementById("contactForm");
+            form.addEventListener("submit", (e) => {
+                // نفترض أن runValidateAllFields() مُعرفة مسبقاً وتتحقق من باقي الحقول
+                if (!runValidateAllFields() || !runValidateEmail() || !runValidatePhoneInput()) {
+                    e.preventDefault();
+                    console.log('تم منع إرسال النموذج لوجود أخطاء.');
+                }
+                //WhatsApp
+                var firstName = document.getElementById('firstName').value.trim(),
+                lastName = document.getElementById('lastName').value.trim(),
+                phone = document.getElementById('phone').value.trim(),
+                email = document.getElementById('email').value.trim(),
+                message = document.getElementById('message').value.trim();
+
+                emailjs.sendForm('service_1lwqiz9','template_wjetnru','#contactForm','PcXwaqH8cEusTKOYG')        
+                
+                // إذا كانت جميع الحقول صحيحة، يتم إرسال النموذج تلقائيًا
+            });
+
+            
+        });
+        
+      
+
+
+    </script>
+{% endblock %}

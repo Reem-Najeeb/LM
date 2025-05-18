@@ -1,0 +1,182 @@
+{% comment %} {% include 'product/suggestionsProduct.html' %} {% endcomment %}
+
+<section class="all-product mb-4">
+    <div class="container">
+        <h2 class="text-center text-secondary mb-5">قد تحب ايضا</h2>
+
+        <!-- 2-small screen -->
+        <div id="cardsCarousel" class="carousel slide d-block d-sm-none" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- البطاقة الأولى -->
+                
+                {% if products %}
+                    {% for product in products %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="card product rate_conflict">
+                                <a href="{% url 'Product_Detail' product.id %}">
+                                    <img src="{{ product.product_image.url }}" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    {% comment %} ❌Down {% endcomment %}
+                                    <span class="card-rate d-flex align-items-center ">
+                                        <span class="number-rate">
+                                            {{ product.avg_rating|floatformat:1|default:"0" }}
+                                        </span>
+                                        <span class="card-star">
+                                            <div class="star-container">
+                                                <span class="star empty" data-value="1">&#9734;</span>
+                                                <span class="star empty" data-value="2">&#9734;</span>
+                                                <span class="star empty" data-value="3">&#9734;</span>
+                                                <span class="star empty" data-value="4">&#9734;</span>
+                                                <span class="star empty" data-value="5">&#9734;</span>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    {% comment %} ❌Up {% endcomment %}
+                
+                                    <h5 class="card-title">
+                                        {{product.product_name}}
+                                    </h5>
+                                    <h5 class="card-title">
+                                        {{product.product_selling_price}}
+                                        ر.ي
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for product in products_r %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="card product rate_conflict">
+                                <a href="{% url 'Product_Detail' product.id %}">
+                                    <img src="{{ product.product_image.url }}" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    {% comment %} ❌Down {% endcomment %}
+                                    <span class="card-rate d-flex align-items-center ">
+                                        <span class="number-rate">
+                                            {{ product.avg_rating|floatformat:1|default:"0" }}
+                                        </span>
+                                        <span class="card-star">
+                                            <div class="star-container">
+                                                <span class="star empty" data-value="1">&#9734;</span>
+                                                <span class="star empty" data-value="2">&#9734;</span>
+                                                <span class="star empty" data-value="3">&#9734;</span>
+                                                <span class="star empty" data-value="4">&#9734;</span>
+                                                <span class="star empty" data-value="5">&#9734;</span>
+                                            </div>
+                                        </span>
+                                    </span>
+                                    {% comment %} ❌Up {% endcomment %}
+                
+                                    <h5 class="card-title">
+                                        {{product.product_name}}
+                                    </h5>
+                                    <h5 class="card-title">
+                                        {{product.product_selling_price}}
+                                        ر.ي
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                
+            </div>
+            <!-- عناصر التحكم في السلايدر -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#cardsCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">السابق</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#cardsCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">التالي</span>
+            </button>
+        </div>
+
+        <!-- 2-larg screen -->
+        <div class="cards-products d-none d-sm-flex flex-wrap ">
+            <!-- الاصل -->
+            {% if products %}
+                {% for product in products %}
+                <div class="card rate_conflict" >
+                    
+                    <a href="{% url 'Product_Detail' product.id %}">
+                        <img src="{{ product.product_image.url }}" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        {% comment %} ❌Down {% endcomment %}
+                        <span class="card-rate d-flex align-items-center ">
+                            <span class="number-rate">
+                                {{ product.avg_rating|floatformat:1|default:"0" }}
+                            </span>
+                            <span class="card-star">
+                                <div class="star-container">
+                                    <span class="star empty" data-value="1">&#9734;</span>
+                                    <span class="star empty" data-value="2">&#9734;</span>
+                                    <span class="star empty" data-value="3">&#9734;</span>
+                                    <span class="star empty" data-value="4">&#9734;</span>
+                                    <span class="star empty" data-value="5">&#9734;</span>
+                                </div>
+                            </span>
+                        </span>
+                        {% comment %} ❌Up {% endcomment %}
+
+                        <h5 class="card-title">
+                            {{product.product_name}}
+                        </h5>
+                        <h5 class="card-title">
+                            {{product.product_selling_price}}
+                            ر.ي
+                        </h5>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                {% for product in products_r %}
+                    <div class="card rate_conflict" >
+                        
+                        <a href="{% url 'Product_Detail' product.id %}">
+                            <img src="{{ product.product_image.url }}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            {% comment %} ❌Down {% endcomment %}
+                            <span class="card-rate d-flex align-items-center ">
+                                <span class="number-rate">
+                                    {{ product.avg_rating|floatformat:1|default:"0" }}
+                                </span>
+                                <span class="card-star">
+                                    <div class="star-container">
+                                        <span class="star empty" data-value="1">&#9734;</span>
+                                        <span class="star empty" data-value="2">&#9734;</span>
+                                        <span class="star empty" data-value="3">&#9734;</span>
+                                        <span class="star empty" data-value="4">&#9734;</span>
+                                        <span class="star empty" data-value="5">&#9734;</span>
+                                    </div>
+                                </span>
+                            </span>
+                            {% comment %} ❌Up {% endcomment %}
+
+                            <h5 class="card-title">
+                                {{product.product_name}}
+                            </h5>
+                            <h5 class="card-title">
+                                {{product.product_selling_price}}
+                                ر.ي
+                            </h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <span id="btnHide" class="btn-primary-tow-span btn-hide">
+            <a class="btn-primary-tow" href="{% url 'Products_List' %}"> استمر بالتسوق </a>
+        </span>
+    </div>
+
+</section>

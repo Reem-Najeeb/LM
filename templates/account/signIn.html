@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %} 
+
+{% block content %}
+{% comment %} 📌form  🔗Link  🛑delete 🔴Loop ❌endLoop 🌸done {% endcomment %}
+    <section class="signIn-section">
+
+
+    {% comment %} {% include "parts/messages.html" %} {% endcomment %}
+
+        <div class="container form-container mb-3">
+            
+            <form method="POST" class="form-container-1" id="contactForm" >
+                {% csrf_token %}
+                <h1 class="form-title"> تسجيل الدخول </h1>
+                <div class="email mb-3 filde-container">
+                    <label class="form-label">الإيميل</label>
+                    {% comment %} <input type="email" class="en form-control" id="email" placeholder="email@gmail.com" > {% endcomment %}
+                    {{ form.email }}
+                    <div class="invalid-feedback">الرجاء إدخال بريد إلكتروني صحيح</div>
+                </div>
+                <div class="password mb-3 filde-container">
+                    <label for="password" class="form-label">كلمة السر</label>
+                    <div class="input-group form-control-border">
+                        {% comment %} <input type="password" id="password" class="en form-control border-0" placeholder="********" oninput="restrictToEnglish(event, 'englishInput')"> {% endcomment %}
+                        {{ form.password }}
+                        <button type="button" class="d-flex justify-content-center align-items-center"  onclick="togglePassword('password', this)">
+                                <svg  class="on" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M11.25 5.57507C12.4626 5.18983 13.7277 4.99583 15 5.00007C20.2275 5.00007 23.785 8.12507 25.9063 10.8801C26.9688 12.2626 27.5 12.9513 27.5 15.0001C27.5 17.0501 26.9688 17.7388 25.9063 19.1201C23.785 21.8751 20.2275 25.0001 15 25.0001C9.7725 25.0001 6.215 21.8751 4.09375 19.1201C3.03125 17.7401 2.5 17.0488 2.5 15.0001C2.5 12.9501 3.03125 12.2613 4.09375 10.8801C4.74188 10.0336 5.46343 9.24596 6.25 8.52632"
+                                        stroke="#2B4254" stroke-width="1.875" stroke-linecap="round" />
+                                    <path
+                                        d="M18.75 15C18.75 15.9946 18.3549 16.9484 17.6517 17.6517C16.9484 18.3549 15.9946 18.75 15 18.75C14.0054 18.75 13.0516 18.3549 12.3483 17.6517C11.6451 16.9484 11.25 15.9946 11.25 15C11.25 14.0054 11.6451 13.0516 12.3483 12.3483C13.0516 11.6451 14.0054 11.25 15 11.25C15.9946 11.25 16.9484 11.6451 17.6517 12.3483C18.3549 13.0516 18.75 14.0054 18.75 15Z"
+                                        stroke="#2B4254" stroke-width="1.875" />
+                                </svg>
+                            
+                            
+                                <svg  class="off  d-none" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13.4125 6.34125C13.9395 6.28024 14.4695 6.24977 15 6.25C20.83 6.25 25.5 9.87875 27.5 15C27.0158 16.2457 26.3617 17.4185 25.5562 18.485M8.15 8.14875C5.6 9.705 3.625 12.1163 2.5 15C4.5 20.1213 9.17 23.75 15 23.75C17.4152 23.7627 19.7865 23.105 21.85 21.85M12.35 12.35C12.0018 12.6983 11.7255 13.1117 11.537 13.5667C11.3486 14.0217 11.2516 14.5094 11.2516 15.0019C11.2516 15.4944 11.3486 15.9821 11.537 16.4371C11.7255 16.8921 12.0018 17.3055 12.35 17.6538C12.6982 18.002 13.1117 18.2782 13.5667 18.4667C14.0217 18.6552 14.5094 18.7522 15.0019 18.7522C15.4944 18.7522 15.9821 18.6552 16.4371 18.4667C16.8921 18.2782 17.3055 18.002 17.6538 17.6538"
+                                        stroke="#2B4254" stroke-width="1.875" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M5 5L25 25" stroke="#2B4254" stroke-width="1.875" stroke-linecap="round" />
+                                </svg>
+                            
+                        </button>
+                    </div>
+                    <div class="invalid-feedback">الرجاء إدخال كلمة مرور صالحة </div>
+
+                    <div class="invalid-feedback">يجب أن تكون كلمة المرور أكثر من 8، مكونة من أرقام وحروف كبيرة وصغيرة.
+                    </div>
+                    
+                </div>
+
+
+                
+                <button class="btn-primary-one w-100" type="submit" id="btnSignIn" name="btnSignIn"> ارسال </button>
+
+                <div class="account-link text-center mt-3">
+                    <a href="{% url 'forgetPssword' %}" class="text-decoration-underline">نسيت كلمة المرور؟</a>
+                    <br>
+                    <a href="{% url 'signUp' %}" class="text-decoration-none mt-2">ليس لديك حساب؟ <strong class="text-primary text-decoration-underline">إنشاء جديد</strong></a>
+                </div>
+            </form>
+            
+
+        </div>
+    </section>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script>
+        function togglePassword(fieldId, button) {
+            const passwordInput = document.getElementById(fieldId);
+            const eyeOpen = button.querySelector('.on');
+            const eyeClosed = button.querySelector('.off');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeOpen.classList.add('d-none');
+                eyeClosed.classList.remove('d-none');
+            } else {
+                passwordInput.type = 'password';
+                eyeOpen.classList.remove('d-none');
+                eyeClosed.classList.add('d-none');
+            }
+        }
+        const form = document.getElementById("contactForm");
+        form.addEventListener("submit", (e) => {
+            // نفترض أن runValidateAllFields() مُعرفة مسبقاً وتتحقق من باقي الحقول
+            if (!runValidateAllFields() || !runValidateEmail() ) {
+                e.preventDefault();
+                console.log('تم منع إرسال النموذج لوجود أخطاء.');
+            }
+            // إذا كانت جميع الحقول صحيحة، يتم إرسال النموذج تلقائيًا
+        });
+    </script>
+{% endblock %}

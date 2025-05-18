@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#546881">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>LM | {% block title %} {% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'images/Logo/Logo.png' %}" type="image/x-icon" />
+    {% block head %}{% endblock %}
+
+    {% if 'profile' in request.path %}
+        {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/cloudflare/semantic.min.css' %}">
+
+
+    {% endif %}
+
+    <!-- CSS -->
+    {% comment %} <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/> {% endcomment %}
+
+    <!-- Default theme -->
+    {% comment %} <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/> {% endcomment %}
+    
+    <!-- Semantic UI theme -->
+    {% comment %} <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- رابط لأيقونات Font Awesome -->
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> {% endcomment %}
+
+    {% comment %} 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+        rel="stylesheet"> 
+    {% endcomment %}
+</head>
+
+<body style="overflow-x: hidden;">
+    {% comment %} {% include 'parts/message.html' %} {% endcomment %}
+    {% include 'parts/header.html' %}
+    
+    
+    {% block content %}
+    
+    {% endblock %}
+    
+    {% comment %} {% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'aboutUs' or request.resolver_match.url_name == 'contactUs' or request.resolver_match.url_name == 'cart' %}<h1> reem </h1>{% endif %} {% endcomment %}
+    {% comment %} {% if "/products/" in request.path or "/" in request.path %}
+        <p>صفحة المنتجات</p>
+    {% endif %} {% endcomment %}
+
+    {% include 'parts/footer.html' %}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- 1- 📌-->
+    {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+    <!-- 2- 📌-->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    {% comment %} {% if 'profile' in request.path  %} {% endcomment %}
+
+    {% if 'profile' in request.path or 'products' in request.path  %}
+    <!-- 3- 📌-->
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script> {% endcomment %}
+    <script src="{% static 'js/semantic.min.js' %}"></script>
+    {% endif %}
+    <!-- 4- 📌-->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- 5- 📌-->
+    {% if 'product' in request.path %}
+    <script src="{% static 'js/product-rwc.js' %}"></script>
+    {% endif %}
+    <!-- 6- 📌-->
+    <script>
+
+        console.log("1")
+
+        var wishlistUrl = $("#wishlist-count").attr("data-url");
+        function updateWishlistCount() {
+            $.ajax({
+                //url: "wishlistCount",  // يجب أن تضيف هذا الـ URL إلى الـ urls.py
+                url: wishlistUrl,
+                dataType: "json",
+                success: function (data) {
+                    $("#wishlist-count").text(data.count);
+                }
+            });
+        }
+
+        function updateCartItemCount() {
+        var url_cartItemCount = ""; // تعيين الرابط حسب الشرط
+
+            if (window.location.href.includes("wishlist/")) {
+                url_cartItemCount = "/ar/product/products/cartItemCount";
+            } else {
+                url_cartItemCount = "/ar/product/cartItemCount";
+            }
+
+            $.ajax({
+                url: url_cartItemCount,  // يجب أن تضيف هذا الـ URL إلى الـ urls.py
+                dataType: "json",
+                success: function (data) {
+                    $("#cart-count").text(data.count);
+                }
+            });
+        }
+    </script>
+    <!-- 7- 📌-->
+    {% block javascript %}
+    {% comment %} var wishlistUrlAddRemove = "{% url 'wishlist_ar' %}"; {% endcomment %}
+
+    {% endblock %}
+    <script src="{% static 'js/messages.js' %}"></script>
+
+        
+</body>
+
+</html>

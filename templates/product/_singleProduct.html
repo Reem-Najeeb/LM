@@ -1,0 +1,582 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} All Products {% endblock %} 
+
+{% block content %}
+    {% comment %}  {% endcomment %}
+    <!-- single product -->
+    {% comment %} <div id="customAlert" class="hidden"></div> {% endcomment %}
+
+    <div class="single-product mb-5">
+        <div class="container d-flex justify-content-around gap-5">
+            <div class="product-images">
+                <!-- 1-Btn wishlist and cart -->
+                <div class="card-wishlist-cart">
+                    <span class="wishlist">
+                        <span class="wishlist">
+                            {% comment %} <span class="like-product" id="like-product" style="position: absolute;font-weight: bold;color: var(--color-accent);font-size: 1.2rem;">
+                                {{likes_count}}
+                            </span> {% endcomment %}
+                            <span class="like-product" id="like-product" 
+                                style="position: absolute; font-weight: bold; color: var(--color-accent); font-size: 1.2rem;top: 8%;right: 22%;">
+                                {{ product.wishlist_set.count }} 
+                            </span>
+
+                            <button class="add-remove-wishlist-pd" data-product="{{ product.id }}">
+                                {% if product.id in wishlist_products %}
+                                    <!-- Yes  -->
+                                    <svg class="remove-wishlist"  width="33" height="33" viewBox="0 0 33 33" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.4725 26.255C16.2057 26.255 15.9413 26.2064 15.6791 26.1093C15.417 26.013 15.1864 25.865 14.9875 25.6652L13.409 24.242C10.9615 22.0191 8.80275 19.8572 6.93275 17.7562C5.06092 15.6561 4.125 13.473 4.125 11.207C4.125 9.45803 4.719 7.98953 5.907 6.80153C7.095 5.61353 8.5635 5.01953 10.3125 5.01953C11.3153 5.01953 12.3599 5.27299 13.4461 5.77991C14.5324 6.28682 15.5503 7.24291 16.5 8.64816C17.4506 7.24291 18.4685 6.28682 19.5539 5.77991C20.6392 5.27299 21.6837 5.01953 22.6875 5.01953C24.4365 5.01953 25.905 5.61353 27.093 6.80153C28.281 7.98953 28.875 9.45803 28.875 11.207C28.875 13.5253 27.901 15.7537 25.9531 17.8923C24.0052 20.0309 21.873 22.1493 19.5566 24.2475L17.9864 25.6652C17.7865 25.865 17.5514 26.013 17.281 26.1093C17.0106 26.2055 16.7415 26.2541 16.4739 26.255"
+                                            fill="#47586E" />
+                                    </svg>
+                                    <!-- No  *-->
+                                    <svg class="add-wishlist" style="display: none;" width="33" height="33" viewBox="0 0 33 33" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.4725 26.255C16.2057 26.255 15.9413 26.2064 15.6791 26.1093C15.417 26.013 15.1864 25.865 14.9875 25.6652L13.409 24.242C10.9615 22.0191 8.80275 19.8572 6.93275 17.7562C5.06092 15.6561 4.125 13.473 4.125 11.207C4.125 9.45803 4.719 7.98953 5.907 6.80153C7.095 5.61353 8.5635 5.01953 10.3125 5.01953C11.3153 5.01953 12.3599 5.27299 13.4461 5.77991C14.5324 6.28682 15.5503 7.24291 16.5 8.64816C17.4506 7.24291 18.4685 6.28682 19.5539 5.77991C20.6392 5.27299 21.6837 5.01953 22.6875 5.01953C24.4365 5.01953 25.905 5.61353 27.093 6.80153C28.281 7.98953 28.875 9.45803 28.875 11.207C28.875 13.5253 27.901 15.7537 25.9531 17.8923C24.0052 20.0309 21.873 22.1493 19.5566 24.2475L17.9864 25.6652C17.7865 25.865 17.5514 26.013 17.281 26.1093C17.0106 26.2055 16.7415 26.2541 16.4739 26.255M15.8276 10.0754C15.0045 8.74807 14.1488 7.80253 13.2605 7.23878C12.3723 6.67595 11.3896 6.39453 10.3125 6.39453C8.9375 6.39453 7.79167 6.85286 6.875 7.76953C5.95833 8.6862 5.5 9.83203 5.5 11.207C5.5 12.2227 5.78737 13.264 6.36212 14.331C6.93687 15.3989 7.70871 16.4925 8.67762 17.6118C9.64562 18.7301 10.7589 19.875 12.0175 21.0465C13.2742 22.2171 14.5832 23.4221 15.9445 24.6614C16.1031 24.8026 16.2883 24.8732 16.5 24.8732C16.7117 24.8732 16.8969 24.8026 17.0555 24.6614C18.4168 23.4221 19.7262 22.2167 20.9839 21.0452C22.2415 19.8755 23.3548 18.731 24.3238 17.6118C25.2918 16.4916 26.0631 15.398 26.6379 14.331C27.2126 13.264 27.5 12.2227 27.5 11.207C27.5 9.83203 27.0417 8.6862 26.125 7.76953C25.2083 6.85286 24.0625 6.39453 22.6875 6.39453C21.6104 6.39453 20.6277 6.67641 19.7395 7.24016C18.8503 7.80299 17.9946 8.74807 17.1724 10.0754C17.099 10.1992 17.001 10.2917 16.8781 10.3532C16.7553 10.4146 16.6292 10.4453 16.5 10.4453C16.3708 10.4453 16.2447 10.4146 16.1219 10.3532C15.999 10.2917 15.9014 10.1992 15.829 10.0754"
+                                            fill="#47586E" />
+                                    </svg>
+                                {% else %}
+                                    <!-- Yes  *-->
+                                    <svg class="remove-wishlist" style="display: none;"  width="33" height="33" viewBox="0 0 33 33" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.4725 26.255C16.2057 26.255 15.9413 26.2064 15.6791 26.1093C15.417 26.013 15.1864 25.865 14.9875 25.6652L13.409 24.242C10.9615 22.0191 8.80275 19.8572 6.93275 17.7562C5.06092 15.6561 4.125 13.473 4.125 11.207C4.125 9.45803 4.719 7.98953 5.907 6.80153C7.095 5.61353 8.5635 5.01953 10.3125 5.01953C11.3153 5.01953 12.3599 5.27299 13.4461 5.77991C14.5324 6.28682 15.5503 7.24291 16.5 8.64816C17.4506 7.24291 18.4685 6.28682 19.5539 5.77991C20.6392 5.27299 21.6837 5.01953 22.6875 5.01953C24.4365 5.01953 25.905 5.61353 27.093 6.80153C28.281 7.98953 28.875 9.45803 28.875 11.207C28.875 13.5253 27.901 15.7537 25.9531 17.8923C24.0052 20.0309 21.873 22.1493 19.5566 24.2475L17.9864 25.6652C17.7865 25.865 17.5514 26.013 17.281 26.1093C17.0106 26.2055 16.7415 26.2541 16.4739 26.255"
+                                            fill="#47586E" />
+                                    </svg>
+                                    <!-- No  -->
+                                    <svg class="add-wishlist" width="33" height="33" viewBox="0 0 33 33" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.4725 26.255C16.2057 26.255 15.9413 26.2064 15.6791 26.1093C15.417 26.013 15.1864 25.865 14.9875 25.6652L13.409 24.242C10.9615 22.0191 8.80275 19.8572 6.93275 17.7562C5.06092 15.6561 4.125 13.473 4.125 11.207C4.125 9.45803 4.719 7.98953 5.907 6.80153C7.095 5.61353 8.5635 5.01953 10.3125 5.01953C11.3153 5.01953 12.3599 5.27299 13.4461 5.77991C14.5324 6.28682 15.5503 7.24291 16.5 8.64816C17.4506 7.24291 18.4685 6.28682 19.5539 5.77991C20.6392 5.27299 21.6837 5.01953 22.6875 5.01953C24.4365 5.01953 25.905 5.61353 27.093 6.80153C28.281 7.98953 28.875 9.45803 28.875 11.207C28.875 13.5253 27.901 15.7537 25.9531 17.8923C24.0052 20.0309 21.873 22.1493 19.5566 24.2475L17.9864 25.6652C17.7865 25.865 17.5514 26.013 17.281 26.1093C17.0106 26.2055 16.7415 26.2541 16.4739 26.255M15.8276 10.0754C15.0045 8.74807 14.1488 7.80253 13.2605 7.23878C12.3723 6.67595 11.3896 6.39453 10.3125 6.39453C8.9375 6.39453 7.79167 6.85286 6.875 7.76953C5.95833 8.6862 5.5 9.83203 5.5 11.207C5.5 12.2227 5.78737 13.264 6.36212 14.331C6.93687 15.3989 7.70871 16.4925 8.67762 17.6118C9.64562 18.7301 10.7589 19.875 12.0175 21.0465C13.2742 22.2171 14.5832 23.4221 15.9445 24.6614C16.1031 24.8026 16.2883 24.8732 16.5 24.8732C16.7117 24.8732 16.8969 24.8026 17.0555 24.6614C18.4168 23.4221 19.7262 22.2167 20.9839 21.0452C22.2415 19.8755 23.3548 18.731 24.3238 17.6118C25.2918 16.4916 26.0631 15.398 26.6379 14.331C27.2126 13.264 27.5 12.2227 27.5 11.207C27.5 9.83203 27.0417 8.6862 26.125 7.76953C25.2083 6.85286 24.0625 6.39453 22.6875 6.39453C21.6104 6.39453 20.6277 6.67641 19.7395 7.24016C18.8503 7.80299 17.9946 8.74807 17.1724 10.0754C17.099 10.1992 17.001 10.2917 16.8781 10.3532C16.7553 10.4146 16.6292 10.4453 16.5 10.4453C16.3708 10.4453 16.2447 10.4146 16.1219 10.3532C15.999 10.2917 15.9014 10.1992 15.829 10.0754"
+                                            fill="#47586E" />
+                                    </svg>
+                                {% endif %}
+                            </button>
+                        </span>
+                    </span>
+                </div>
+                
+                <img src="{{ product.product_image.url }}" class="product-image_main" alt="" id="largimg">
+
+                <div class="product-images_mini">
+                    {% for image in product_images %}
+                        <img src="{{ image.image.url }}" class="image_mini" alt="Product Image" data-index="0">
+                    {% empty %}
+                        <p></p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="product-details">
+                <div class="rating d-flex align-items-center ">
+                    {% comment %} <span class="number-rate">2</span> {% endcomment %}
+                    <span class="number-rate">
+                        {{ average_rating|floatformat:1|default:"0" }}
+                    </span>
+                    <span class="rating-star">
+                        <div class="star-container">
+                            <span class="star empty" data-value="1">&#9734;</span>
+                            <span class="star empty" data-value="2">&#9734;</span>
+                            <span class="star empty" data-value="3">&#9734;</span>
+                            <span class="star empty" data-value="4">&#9734;</span>
+                            <span class="star empty" data-value="5">&#9734;</span>
+                        </div>
+                    </span>
+                </div>
+
+                <h2 class="title">  {{product.product_name}} </h2>
+                <p class="discription">
+                    {{product.product_description}}
+                </p>
+                <strong class="price"> {{product.product_selling_price}} ر.ي</strong>
+
+                <form class="formAddProductToCart" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ product.id }}" class="proId">
+                    <div class="info-pay">
+                        <div class="counter">
+                            <strong id="decrease">-</strong>
+                            <input type="number" value="1" id="quantity" class="quantity" min="1" >
+                            <strong id="increase">+</strong>
+                        </div>
+                    </div>
+                    <span class="btn-primary-one-span justify-content-start">
+                        <button type="submit" class="btn-primary-one text-center add-to-cart-btn" data-product="{{ product.id }}"> اضافة الى السلة </button>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="reviews mb-5">
+        <div class="container">
+
+            <div class="mothers-reviews">
+                <div class="head-review d-flex justify-content-between align-items-center">
+                    <h1 class="title fs-4">لمسة حب باراء الامهات</h1>
+                    {%if request.user.is_authenticated %}
+                        {% if not has_review %}
+                        <span class="btn-primary-three-span">
+                            <button class="btn-primary-three text-center" data-bs-toggle="collapse"
+                                data-bs-target="#collapseAddRreview" aria-expanded="false"
+                                aria-controls="collapseAddRreview"> اضف رأيك </button>
+                        </span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% if not has_review %}
+                    <form  method="POST" class="AddRreview add-review collapse pb-3" id="collapseAddRreview">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ product.id }}" class="proId">
+                        
+                        <div class="addratestare">
+                            <h4 class="title"> اضف تقييم المنتج </h4>
+                            <div id="star-container" class=" d-flex align-items-center">
+                                <!-- نجوم مبدئياً مفرغة -->
+                                <span class="star star-larg filled" data-value="1">&#9733;</span>
+                                <span class="star star-larg empty" data-value="2">&#9734;</span>
+                                <span class="star star-larg empty" data-value="3">&#9734;</span>
+                                <span class="star star-larg empty" data-value="4">&#9734;</span>
+                                <span class="star star-larg empty" data-value="5">&#9734;</span>
+                                <p id="rating-value" class="m-0 ms-2"></p> 
+                                <input type="hidden" class="ratingValue" id="rating-value-hidden" value="1">
+                            </div>
+                        </div>
+                        <div class="addratecomment">
+                            <div class="d-flex flex-column">
+                                <h4 class="title"> يسعدنا رأيك حول تجربة المنتج</h4>
+                                <div class="mb-3">
+                                    <textarea class="form-control ratingtext" id="new-faqsTextarea1" name="new-faqs"rows="3"></textarea>
+                                </div>
+
+                                <span class="btn-primary-three-span">
+                                    <button class="btn-primary-three text-center add-review-btn" data-product="{{ product.id }}">اضف</button>
+                                </span>
+
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+                <div class="all-review row">
+                    {% for review in product_reviews %}
+                    <div class="mother-review col-sm-4 mb-3">
+                        <div class="card">
+                            <div class="card-body" style="min-height: 8.5rem;">
+                                <div class="head-card d-flex justify-content-between align-items-center">
+                                    <div class="name-mother">{{ review.customer.user.first_name }}  {{ review.customer.user.last_name }}</div>
+                                    <div class="mother-rating d-flex align-items-center ">
+                                        <span class="number-rate d-none">{{ review.rating }}</span>
+                                        <span class="rating-star">
+                                            <div class="star-container">
+                                                <span class="star empty" data-value="1">&#9734;</span>
+                                                <span class="star empty" data-value="2">&#9734;</span>
+                                                <span class="star empty" data-value="3">&#9734;</span>
+                                                <span class="star empty" data-value="4">&#9734;</span>
+                                                <span class="star empty" data-value="5">&#9734;</span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <p class="body-card">
+                                    {{ review.comment }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <p>لا توجد تقييمات لهذا المنتج بعد.</p>
+                    {% endfor %}
+                    {% comment %} 
+                    
+                     {% endcomment %}
+                    <!-- end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'product/suggestionsProduct.html' %}
+{% endblock %}
+
+
+
+
+
+{% block javascript %}
+    <!-- rate product -->
+    <script>
+        // Rate
+        {% comment %} function updateStars(container, rating) {
+            const stars = container.querySelectorAll('.rating .star');
+            stars.forEach(star => {
+                const starValue = parseFloat(star.getAttribute('data-value'));
+                if (starValue <= rating) {
+                    star.innerHTML = '&#9733;'; // ★ نجمة ممتلئة
+                    star.classList.add('filled');
+                    star.classList.remove('empty');
+                } else {
+                    star.innerHTML = '&#9734;'; // ☆ نجمة مفرغة
+                    star.classList.remove('filled');
+                    star.classList.add('empty');
+                }
+            });
+        } {% endcomment %}
+
+        function updateStars(container, rating) {
+            const stars = container.querySelectorAll('.star');
+            stars.forEach(star => {
+                const starValue = parseFloat(star.getAttribute('data-value'));
+                if (starValue <= rating) {
+                    star.innerHTML = '&#9733;'; // ★ نجمة ممتلئة
+                    star.classList.add('filled');
+                    star.classList.remove('empty');
+                } else {
+                    star.innerHTML = '&#9734;'; // ☆ نجمة مفرغة
+                    star.classList.remove('filled');
+                    star.classList.add('empty');
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            //mini images
+            let largeImage = document.getElementById("largimg");
+            let miniImages = document.querySelectorAll(".image_mini");
+            miniImages.forEach(image => {
+                image.addEventListener("click", function () {
+                    largeImage.src = this.src;
+                    miniImages.forEach(img => img.classList.remove("active"));
+                    this.classList.add("active");
+                });
+            });
+            {% comment %}  {% endcomment %}
+
+
+            
+            const rating = parseFloat(document.querySelector('.rating .number-rate').textContent);
+            const starContainer = document.querySelector('.rating .star-container');
+            updateStars(starContainer, rating);
+
+             
+
+            document.querySelectorAll('.card').forEach(card => {
+                const rating = parseFloat(card.querySelector('.number-rate').textContent);
+                const starContainer = card.querySelector('.star-container');
+                updateStars(starContainer, rating);
+            }); {% comment %} {% endcomment %}
+
+
+
+            <!-- rate add -->
+            const addstars = document.querySelectorAll('.add-review .star');
+            const ratingValue = document.getElementById('rating-value');
+            const ratingValueHidden = document.getElementById('rating-value-hidden');
+            let currentRating = 0;
+            addstars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = parseInt(star.getAttribute('data-value'));
+                    currentRating = rating;
+                    ratingValue.textContent = `تقييمك: ${currentRating} من 5`;
+                    
+                    // ✅ تحديث قيمة input بطريقة صحيحة
+                    ratingValueHidden.setAttribute("value", currentRating);
+                    ratingValueHidden.value = currentRating; 
+
+                    updateaddStars(currentRating);
+                    // يمكنك هنا إرسال التقييم إلى الخادم أو معالجته حسب الحاجة
+                });
+            });
+
+            function updateaddStars(rating) {
+                addstars.forEach(star => {
+                    const starValue = parseInt(star.getAttribute('data-value'));
+                    if (starValue <= rating) {
+                        // نجمة مملوءة
+                        star.innerHTML = '&#9733;'; // ★
+                        star.classList.add('filled');
+                        star.classList.remove('empty');
+                    } else {
+                        // نجمة مفرغة
+                        star.innerHTML = '&#9734;'; // ☆
+                        star.classList.remove('filled');
+                        star.classList.add('empty');
+                    }
+                });
+            }
+  
+        });
+
+    </script>
+    <!-- rate mothers -->
+
+    
+    <script>
+    //     document.addEventListener("DOMContentLoaded", function () {
+    //         let quantityElement = document.getElementById("quantity");
+    //         let increaseBtn = document.getElementById("increase");
+    //         let decreaseBtn = document.getElementById("decrease");
+
+    //         if (increaseBtn && decreaseBtn && quantityElement) {  // تأكد من أن العناصر موجودة
+    //             increaseBtn.addEventListener("click", function () {
+    //                 let quantity = parseInt(quantityElement.textContent);
+    //                 // quantityElement.textContent = quantity + 1;
+    //                 quantityElement.value = quantity + 1;
+    //             });
+
+    //             decreaseBtn.addEventListener("click", function () {
+    //                 let quantity = parseInt(quantityElement.textContent);
+    //                 if (quantity > 1) { // لا تسمح بأن يكون العدد أقل من 1
+    //                     quantityElement.textContent = quantity - 1;
+    //                 }
+    //             });
+    //         } else {
+    //             console.error("لم يتم العثور على عناصر العداد!");
+    //         }
+    //     });
+    // </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let quantityElement = document.getElementById("quantity");
+            let increaseBtn = document.getElementById("increase");
+            let decreaseBtn = document.getElementById("decrease");
+
+            if (increaseBtn && decreaseBtn && quantityElement) {  
+                increaseBtn.addEventListener("click", function () {
+                    let quantity = parseInt(quantityElement.value); 
+                    quantityElement.value = quantity + 1; // تحديث القيمة بشكل صحيح
+                });
+
+                decreaseBtn.addEventListener("click", function () {
+                    let quantity = parseInt(quantityElement.value);
+                    if (quantity > 1) { 
+                        quantityElement.value = quantity - 1; // تحديث القيمة عند النقصان
+                    }
+                });
+            } else {
+                console.error("لم يتم العثور على عناصر العداد!");
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', ".add-remove-wishlist-pd", function(){
+                console.log("ready")
+                var product_id= $(this).attr('data-product');
+                var likeCounter = $("#like-product");
+                var btn = $(this); 
+                console.log(product_id)
+                
+                $.ajax({
+                    
+                    url: `/product/products/${product_id}/wishlist/`,  // تأكد من أن المسار صحيح
+                    type: 'GET',  // استخدم POST
+                    data: {
+                        product: product_id
+                    },
+                    dataType: 'json',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(res){
+                        console.log("Response:", res);
+                        var addW = btn.find('.add-wishlist');
+                        var removeW = btn.find('.remove-wishlist');
+
+                        if (res.bool) {
+                            addW.hide();
+                            removeW.show();
+                            {% comment %} showAlert(res.bool, res.message); {% endcomment %}
+                            {% comment %} console.log(res.bool, res.message) {% endcomment %}
+                        } else {
+                            addW.show();
+                            removeW.hide();
+                            {% comment %} showAlert(res.bool, res.message); {% endcomment %}
+                            {% comment %} console.log(res.bool, res.message) {% endcomment %}
+                        }
+                        likeCounter.text(res.likes_count);
+                        updateWishlistCount();
+
+                        // if (res.bool) { alert("تمت إضافة المنتج إلى المفضلة!");} 
+                        // else { alert("تمت إزالة المنتج من المفضلة!");}
+                    },
+                    error: function(xhr){
+                        showAlert('error', ' يجب تسجيل الدخول!');
+                    }
+                })
+                {% comment %}  {% endcomment %}
+            })
+
+
+            {% comment %} //1
+            $(".add-to-cart-btn").click(function(event) {
+                event.preventDefault(); // منع إعادة تحميل الصفحة
+                let productId = $(this).data("product");
+                let quantity = $("#quantity").val(); // جلب قيمة الكمية المدخلة
+                
+                $.ajax({
+                    url: `/ar/product/products/${productId}/add-to-cart/`,  // تصحيح المسار هنا
+                    type: "POST",
+                    data: {
+                        product_id: productId,
+                        quantity: quantity,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    success: function(response) {
+                        console.log(response)
+
+                        showAlert(response.bool, response.message);
+                        console.log(response.bool, response.message)
+                        alert(response.message);  // إظهار رسالة نجاح
+                        $("#cart-count").text(response.cart_count);  // تحديث عدد المنتجات في السلة
+                    },
+                    error: function(xhr) {
+                        alert(xhr.responseJSON.error);  // إظهار رسالة خطأ إذا وُجد
+                    }
+                });
+            }); {% endcomment %}
+
+             
+            $(".add-to-cart-btn").click(function(event) {
+                event.preventDefault();
+                var product_id = $(this).closest('.formAddProductToCart').find('.proId').val()
+                var product_qty = $(this).closest('.formAddProductToCart').find('.quantity').val()
+                var token = $('input[name=csrfmiddlewaretoken]').val()
+                
+                $.ajax({
+                    type:"POST",
+                    {% comment %} url:  "{% url 'add_cart_product' %}", {% endcomment %}
+                    url: `/ar/product/products/${product_id}/add-to-cart/`, 
+                    data: {
+                        'product_id': product_id,
+                        'product_qty': product_qty,
+                        csrfmiddlewaretoken: token,
+                    },
+                    dataType: "json",
+                    success: function(res){
+                        console.log(res)
+
+                        showAlert(res.bool, res.message);
+                        console.log(res.bool, res.message)
+                        console.log(res);  // طباعة الرد من السيرفر للاختبار
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        showAlert('error', ' يجب تسجيل الدخول!');
+                    }
+                })
+            
+            })
+
+            {% comment %} $(".add-review-btn").click(function(event) {
+                event.preventDefault();
+                
+                var product_id = $(this).data("product");  // الحصول على معرف المنتج من الزر
+                var ratingValue = $(this).closest('.AddRreview').find('.ratingValue').val();
+                var ratingtext = $(this).closest('.AddRreview').find('.ratingtext').val();
+                var token = $('input[name=csrfmiddlewaretoken]').val();
+            
+                $.ajax({
+                    type: "POST",
+                    url: `/ar/product/products/${product_id}/add-review/`,  // إدراج معرف المنتج في الرابط
+                    data: {
+                        'ratingValue': ratingValue,
+                        'ratingtext': ratingtext,
+                        csrfmiddlewaretoken: token,
+                    },
+                    dataType: "json",
+                    success: function(res) {
+                        console.error(res.status)
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+                });
+            }); {% endcomment %}
+
+            $(".add-review-btn").click(function(event) {
+                event.preventDefault();
+            
+                var $form = $(this).closest('.AddRreview');
+                var product_id = $(this).data("product");
+                var ratingValue = $form.find('.ratingValue').val();
+                var ratingtext = $form.find('.ratingtext').val();
+                var token = $('input[name=csrfmiddlewaretoken]').val();
+            
+                $.ajax({
+                    type: "POST",
+                    url: `/ar/product/products/${product_id}/add-review/`,
+                    data: {
+                        'ratingValue': ratingValue,
+                        'ratingtext': ratingtext,
+                        'csrfmiddlewaretoken': token
+                    },
+                    dataType: "json",
+                    success: function(res) { 
+                        showAlert(res.bool, res.message);
+                        console.log(res.bool, res.message)
+                    },
+                    error: function(xhr) {
+                        var errorMsg = "❌ حدث خطأ أثناء إرسال التقييم!";
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMsg = xhr.responseJSON.error;
+                        }
+                    }
+                });
+            });
+            
+
+
+            {% comment %}  {% endcomment %}
+            
+
+            
+        })
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% comment %} 
+
+    <div class="product-images">
+        {% for image in product_images %}
+            <img src="{{ image.image.url }}" alt="Product Image" >
+        {% empty %}
+            <p>لا توجد صور متاحة لهذا المنتج.</p>
+        {% endfor %}
+    </div>
+
+
+
+
+
+
+
+    <h3>التقييمات:</h3>
+    <div class="reviews">
+        {% for review in product_reviews %}
+            <div class="review">
+                <p><strong>العميل:</strong> {{ review.customer.user.first_name }}  {{ review.customer.user.last_name }}</p>
+                <p><strong>التقييم:</strong> ⭐ {{ review.rating }}/5</p>
+                <p><strong>التعليق:</strong> {{ review.comment }}</p>
+                <p><small>تم النشر في: {{ review.created_at|date:"d M Y" }}</small></p>
+            </div>
+            <hr>
+        {% empty %}
+            <p>لا توجد تقييمات لهذا المنتج بعد.</p>
+        {% endfor %}
+    </div>
+{% endcomment %}

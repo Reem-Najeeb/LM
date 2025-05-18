@@ -1,0 +1,87 @@
+{% for product in cart_items %}
+    <div id="cart-container" class="cart-item d-flex justify-content-between align-items-center gap-1" data-product-id="{{ product.id }}">
+        
+        <a href="{% url 'Product_Detail' product.product.id %}" class="mini-image-cart">
+            <img class="cart-item-img" src="{{ product.product.product_image.url }}" alt="بودي">
+        </a>
+        <span class="truncate-text"> {{ product.product.product_name }} </span>
+        <span class="price-product-total totalPrice" data-price="{{product.product.product_selling_price}}">{{product.product_selling_price}} ريال</span>
+
+        <div class="quantity-control">
+            <form class="counter">
+                {% csrf_token %}
+                <strong class="decrease">-</strong>
+                <input type="number" class="quantity" min="1" value="{{product.quantity}}" >
+                <strong class="increase">+</strong>
+            </form>
+        </div>
+        <span class="delete-btn">
+            <button type="button" class="remove-cart" data-product="{{ product.id }}">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M11.4034 5.8338L4.38477 4.59713L4.58777 3.4468C4.60114 3.37133 4.62926 3.29923 4.67051 3.23464C4.71176 3.17004 4.76534 3.1142 4.82818 3.07032C4.89102 3.02644 4.9619 2.99537 5.03675 2.9789C5.11161 2.96242 5.18897 2.96086 5.26443 2.9743L21.4799 5.8338H21.5826H21.4811L23.6453 6.2153C23.7208 6.22854 23.7931 6.25656 23.8578 6.29775C23.9225 6.33895 23.9785 6.3925 24.0225 6.45536C24.0665 6.51822 24.0977 6.58914 24.1142 6.66405C24.1308 6.73897 24.1324 6.81642 24.1189 6.89197L23.9159 8.03996L21.4776 7.61063L20.5443 23.4703C20.5095 24.064 20.2493 24.622 19.8169 25.0303C19.3846 25.4386 18.8126 25.6664 18.2179 25.6671H9.7841C9.1888 25.6673 8.61597 25.4399 8.18285 25.0315C7.74974 24.6231 7.48909 24.0646 7.45427 23.4703L6.5221 7.5838H21.3271L11.4034 5.8338ZM10.5004 10.5005L11.0838 21.0005H12.8338L12.3671 10.5005H10.5004ZM15.7504 10.5005L15.1671 21.0005H16.9171L17.5004 10.5005H15.7504ZM12.6634 1.31763L17.2601 2.1273C17.3356 2.14067 17.4077 2.16879 17.4723 2.21004C17.5369 2.25129 17.5927 2.30487 17.6366 2.36771C17.6805 2.43056 17.7115 2.50143 17.728 2.57628C17.7445 2.65114 17.746 2.72851 17.7326 2.80396L17.5296 3.95196L11.7849 2.9393L11.9879 1.79013C12.0013 1.71466 12.0294 1.64257 12.0707 1.57797C12.1119 1.51337 12.1655 1.45754 12.2283 1.41365C12.2912 1.36977 12.3621 1.33871 12.4369 1.32223C12.5118 1.30575 12.588 1.30419 12.6634 1.31763Z"
+                        fill="#f44336" />
+                </svg>
+            </button>
+        </span>
+    </div>
+{% empty %}
+    <span class="d-flex flex-column justify-content-center align-items-center">
+        <h2 class="title-empty">
+            لا توجد منتجات 
+        </h2>
+        <a class="btn-primary-tow" href="{% url 'Products_List' %}"> استمر بالتسوق </a>
+    </span>
+{% endfor %}
+
+{% comment %} 
+ $(".increase").click(function () {
+                let parent = $(this).closest(".cart-item");
+                let productId = parent.data("product-id"); // تأكدي من إضافة data-product-id في div
+            
+                $.ajax({
+                    type: "GET",
+                    url: "cart/increase/",
+                    data: {
+                        product_id: productId,
+                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            parent.find(".quantity").val(response.new_quantity);
+                            updateTotal();
+                        }
+                    }
+                });
+            });
+
+            
+            
+            
+            
+            $(".decrease").click(function () {
+                let parent = $(this).closest(".cart-item");
+                let productId = parent.data("product-id");
+            
+                $.ajax({
+                    type: "POST",
+                    url: "products//cart/decrease/",
+                    data: {
+                        product_id: productId,
+                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            if (response.deleted) {
+                                parent.remove(); // شيل العنصر من الصفحة لو تم حذفه
+                            } else {
+                                parent.find(".quantity").val(response.new_quantity);
+                            }
+                            updateTotal();
+                        }
+                    }
+                });
+            });
+
+{% endcomment %}

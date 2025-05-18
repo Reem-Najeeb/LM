@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} wishlist {% endblock %} 
+
+{% block content %}
+    <section class="cart-wishlist-section">
+        <div class="container mt-3 mb-5">
+            <div class="d-flex gap-2 justify-content-between align-items-center">
+                <h2 class="text-center text-secondary"> مقتنياتك المميزة </h2>
+            </div>
+            <div class="row m-0" id="wishlist-container">
+                {% include "product/wishlist_items.html" %}
+            </div>
+        </div>
+
+    </section>
+    {% include 'product/suggestionsProduct.html' %}
+
+{% endblock %}
+{% block javascript %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            console.log("wishlist")
+            $(document).on('click', ".remove-wishlist", function(){
+                var product_id = $(this).attr('data-product');
+                var btn = $(this); 
+            
+                console.log("Adding product:", product_id);
+                var url = ""; // تعيين الرابط حسب الشرط
+
+                url = "/ar/product/products/remove_Wishlist";
+            
+                $.ajax({
+                    // url: "single_cartItem_ar",
+                    url: url,
+                    data: { product_id: product_id }, // تأكد من أن المفتاح يتطابق مع الـ view
+                    dataType: 'json',
+                    success: function(res){
+                        console.log(res);
+                        console.log(res.message);
+                    
+                        {% comment %} 
+                        if (res.bool) {
+                            console.log(res.bool);
+                            console.log(res.message);
+                            location.reload();
+                        } else {
+                            console.log(res.bool);
+                            console.log(res.message);
+                            location.reload();
+
+                        }  {% endcomment %}
+                        if (res.bool) {
+                            // تحديث قسم المفضلة فقط
+                            alert("لم يتم حذف المنتج.");
+                        } else {
+                            $("#wishlist-container").load("/ar/product/products/wishlist_partial");
+                        }
+                        updateWishlistCount();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", status, error);
+                        alert("فشل الاتصال بالخادم! كود الخطأ: " + xhr.status);
+                    }
+                });
+        
+            });
+            
+            // Rate call function:-
+            rate_conflict();
+        }); 
+    </script>
+{% endblock %}
