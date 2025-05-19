@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'LM.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-''' '''
+'''  '''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -126,7 +126,7 @@ DATABASES = {
 #         'USER': 'postgres',
 #         'PASSWORD': 'ImsxlndnSxKBYCOqyiJjzmBanVjbevyJ',
 #         'HOST': 'maglev.proxy.rlwy.net',
-#         'PORT': '35644',
+#         'PORT': '35644', # 5432
 #     }
 # }
 # postgresql://postgres:ImsxlndnSxKBYCOqyiJjzmBanVjbevyJ@maglev.proxy.rlwy.net:35644/railway
